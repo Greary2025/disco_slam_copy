@@ -127,3 +127,8 @@ target_link_libraries(${PROJECT_NAME}_mapFusion ${catkin_LIBRARIES}
 
 #catkin_install_python(PROGRAMS scripts/listener.py
 #	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+# Path to TUM recorder
+add_executable(${PROJECT_NAME}_path_to_tum src/path_to_tum.cpp)
+add_dependencies(${PROJECT_NAME}_path_to_tum ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+target_link_libraries(${PROJECT_NAME}_path_to_tum ${catkin_LIBRARIES})

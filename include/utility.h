@@ -14,7 +14,11 @@
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
 
-#include <opencv/cv.h>
+// #include <opencv/cv.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
@@ -152,6 +156,13 @@ public:
 
     int number_print;
 
+    // Lidar vertical channel handling when 'ring' field is absent
+    // If hasRing is false, we will compute row index from vertical angle using
+    // angBottom and angResY, compatible with VLP-16 style settings.
+    bool hasRing;
+    float angBottom; // degrees
+    float angResY;   // degrees per channel
+
     ParamServer()
     {
         ros::NodeHandle n("~");
@@ -245,6 +256,11 @@ public:
         nh.param<float>("disco_slam/globalMapVisualizationSearchRadius", globalMapVisualizationSearchRadius, 1e3);
         nh.param<float>("disco_slam/globalMapVisualizationPoseDensity", globalMapVisualizationPoseDensity, 10.0);
         nh.param<float>("disco_slam/globalMapVisualizationLeafSize", globalMapVisualizationLeafSize, 1.0);
+
+        // Optional handling for point clouds without 'ring' channel
+        nh.param<bool>("disco_slam/has_ring", hasRing, true);
+        nh.param<float>("disco_slam/ang_bottom", angBottom, 15.0);
+        nh.param<float>("disco_slam/ang_res_y", angResY, 2.0);
 
         usleep(100);
     }

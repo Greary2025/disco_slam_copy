@@ -189,13 +189,13 @@ public:
         ParamLoader();
         initialization();
 
-        _sub_communication_signal = nh.subscribe<std_msgs::Bool>(_robot_id + "/disco_slam/signal",
-                 100, &MapFusion::communicationSignalHandler, this, ros::TransportHints().tcpNoDelay());
+        // _sub_communication_signal = nh.subscribe<std_msgs::Bool>(_robot_id + "/disco_slam/signal",
+                //  100, &MapFusion::communicationSignalHandler, this, ros::TransportHints().tcpNoDelay());
 
-        _sub_signal_1 = nh.subscribe<std_msgs::Bool>(_signal_id_1 + "/disco_slam/signal",
-                 100, &MapFusion::signalHandler1, this, ros::TransportHints().tcpNoDelay());
-        _sub_signal_2 = nh.subscribe<std_msgs::Bool>(_signal_id_2 + "/disco_slam/signal",
-                 100, &MapFusion::signalHandler2, this, ros::TransportHints().tcpNoDelay());
+        // _sub_signal_1 = nh.subscribe<std_msgs::Bool>(_signal_id_1 + "/disco_slam/signal",
+                //  100, &MapFusion::signalHandler1, this, ros::TransportHints().tcpNoDelay());
+        // _sub_signal_2 = nh.subscribe<std_msgs::Bool>(_signal_id_2 + "/disco_slam/signal",
+                //  100, &MapFusion::signalHandler2, this, ros::TransportHints().tcpNoDelay());
 
         _sub_laser_cloud_info = nh.subscribe<disco_slam::cloud_info>(_robot_id + "/" + _local_topic,
                 1, &MapFusion::laserCloudInfoHandler, this, ros::TransportHints().tcpNoDelay());
@@ -316,8 +316,17 @@ private:
 
     }
 
+    // int robotID2Number(std::string robo){
+    //     return robo.back() - '0';
+    // }
     int robotID2Number(std::string robo){
-        return robo.back() - '0';
+        // return robo.back() - '0';
+        if(robo == "xianfeng")
+            return 0;
+        else if(robo == "gensui")
+            return 1;
+        else if(robo == "jinlin")
+            return 2;
     }
 
     void laserCloudInfoHandler(const disco_slam::cloud_infoConstPtr& msgIn)
@@ -1015,7 +1024,7 @@ private:
     {
         // ICP Settings
         pcl::IterativeClosestPoint<PointType, PointType> icp;
-        icp.setMaxCorrespondenceDistance(100);
+        icp.setMaxCorrespondenceDistance(30);
         icp.setMaximumIterations(100);
         icp.setTransformationEpsilon(1e-6);
         icp.setEuclideanFitnessEpsilon(1e-6);

@@ -84,6 +84,10 @@ private:
     double timeScanEnd;
     std_msgs::Header cloudHeader;
 
+    // Ring channel detection cache
+    int ringFlag;         // 1: ring field present, -1: absent
+    bool ringFlagCached;  // whether detection done
+
 
 public:
     ImageProjection():
@@ -100,6 +104,9 @@ public:
         resetParameters();
 
         pcl::console::setVerbosityLevel(pcl::console::L_ERROR);
+        // Initialize ringFlag to unknown; will detect per first cloud.
+        ringFlagCached = false;
+        ringFlag = 0;
     }
 
     void allocateMemory()
@@ -240,23 +247,18 @@ public:
             ros::shutdown();
         }
 
-        // check ring channel
-        static int ringFlag = 0;
-        if (ringFlag == 0)
-        {
-            ringFlag = -1;
-            for (int i = 0; i < (int)currentCloudMsg.fields.size(); ++i)
-            {
-                if (currentCloudMsg.fields[i].name == "ring")
-                {
-                    ringFlag = 1;
-                    break;
-                }
+        // check ring channel (allow fallback if hasRing==false)
+        if (!ringFlagCached) {
+            ringFlag = -1; // assume no ring
+            for (auto &f : currentCloudMsg.fields) {
+                if (f.name == "ring") { ringFlag = 1; break; }
             }
-            if (ringFlag == -1)
-            {
-                ROS_ERROR("Point cloud ring channel not available, please configure your point cloud data!");
+            ringFlagCached = true;
+            if (ringFlag == -1 && hasRing) {
+                ROS_ERROR("Point cloud ring channel not available, but parameter has_ring=true. Either set disco_slam/has_ring:=false or use a driver that publishes ring.");
                 ros::shutdown();
+            } else if (ringFlag == -1 && !hasRing) {
+                ROS_WARN("No ring field detected. Falling back to vertical angle inference (ang_bottom=%.1f, ang_res_y=%.3f).", angBottom, angResY);
             }
         }
 
@@ -530,7 +532,13 @@ public:
             if (range < lidarMinRange || range > lidarMaxRange)
                 continue;
 
-            int rowIdn = laserCloudIn->points[i].ring;
+            int rowIdn;
+            if (ringFlag == 1) {
+                rowIdn = laserCloudIn->points[i].ring;
+            } else {
+                float verticalAngle = atan2(thisPoint.z, sqrt(thisPoint.x*thisPoint.x + thisPoint.y*thisPoint.y)) * 180.0 / M_PI;
+                rowIdn = int( (verticalAngle + angBottom) / angResY + 0.5 );
+            }
             if (rowIdn < 0 || rowIdn >= N_SCAN)
                 continue;
 

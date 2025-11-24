@@ -1,13 +1,22 @@
 <launch>
+    <!-- 启用 use_sim_time 参数 -->
+    <param name="/use_sim_time" value="false" />
+
+    <arg name="discoslam_bag" value="/mnt/d/rosbag/big_exam/synchronous_1014.bag"/>
+
     <arg name="no"      default="1"/>
     <arg name="project" default="disco_slam"/>
-    <arg name="robot0"	default="jackal0"/>
-    <arg name="robot1"	default="jackal1"/>
+    <arg name="robot0"	default="xianfeng"/>
+    <arg name="robot1"	default="gensui"/>
     <arg name="robot2"	default="jackal2"/>
 
     <!-- Parameters -->
-    <rosparam file="$(find disco_slam)/config/params.yaml" command="load" />
-    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion.yaml" command="load" />
+    <!-- <rosparam file="$(find disco_slam)/config/params.yaml" command="load" /> -->
+    <!-- <rosparam file="$(find disco_slam)/config/params_k.yaml" command="load" /> -->
+    <rosparam file="$(find disco_slam)/config/params_ue.yaml" command="load" />
+    <!-- <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion.yaml" command="load" /> -->
+    <!-- <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_k.yaml" command="load" /> -->
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_ue.yaml" command="load" />
 
     <!--- LOAM robot 0 -->
     <include file="$(find disco_slam)/launch/include/module_loam.launch" >
@@ -26,12 +35,12 @@
     </include>
 
     <!--- LOAM robot 2 -->
-    <include file="$(find disco_slam)/launch/include/module_loam.launch" >
+    <!-- <include file="$(find disco_slam)/launch/include/module_loam.launch" >
         <arg name="robot" value="$(arg robot2)"/>
         <arg name="id1" value="$(arg robot0)"/>
         <arg name="id2" value="$(arg robot1)"/>
         <arg name="no" value="$(arg no)"/>
-      </include>
+      </include> -->
 
     <!--- Robot State TF -->
     <!-- <include file="$(find disco_slam)/launch/include/module_robot_state_publisher.launch" /> -->
@@ -45,6 +54,10 @@
 <!--    Run Communication Simulator-->
 <!--    <node pkg="$(arg project)" name= "$(arg project)_listener" type="listener.py" output="screen"/>-->
 
+    <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-r 1 -q $(arg discoslam_bag)">  </node>
+    
+    <!-- 启动PCD保存节点 -->
+    <include file="$(find disco_slam)/launch/run_path_to_tum.launch" />
 
 
 </launch>
