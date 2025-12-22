@@ -1,0 +1,282 @@
+[0.015s] Invoking command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam': CMAKE_PREFIX_PATH=/opt/ros/humble PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --build /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam -- -j20 -l20
+[0.043s] -- Configuring for ROS 2...
+[0.044s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.168s] -- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)
+[0.341s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.343s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.348s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.356s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.365s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.393s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.393s] -- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[5.967s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[6.007s] -- Found rclpy: 3.3.19 (/opt/ros/humble/share/rclpy/cmake)
+[6.008s] -- Found tf2: 0.25.17 (/opt/ros/humble/share/tf2/cmake)
+[6.022s] -- Found tf2_ros: 0.25.17 (/opt/ros/humble/share/tf2_ros/cmake)
+[6.085s] -- Found tf2_geometry_msgs: 0.25.17 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)
+[6.087s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[6.088s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[6.089s] -- Found tf2_eigen: 0.25.17 (/opt/ros/humble/share/tf2_eigen/cmake)
+[6.092s] -- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)
+[6.111s] -- Found pcl_conversions: 2.4.5 (/opt/ros/humble/share/pcl_conversions/cmake)
+[6.137s] -- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+[7.962s] -- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)
+[11.978s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[11.984s] -- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+[14.090s] -- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+[14.095s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[14.102s] -- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+[16.200s] -- Found Qhull version 8.0.2
+[18.318s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[20.564s] -- Found nav_msgs: 4.9.0 (/opt/ros/humble/share/nav_msgs/cmake)
+[20.576s] -- Found visualization_msgs: 4.9.0 (/opt/ros/humble/share/visualization_msgs/cmake)
+[20.590s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[20.597s] [33mCMake Warning (dev) at CMakeLists.txt:84 (find_package):
+[20.597s]   Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+[20.597s]   Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+[20.597s]   command to set the policy and suppress this warning.
+[20.597s] 
+[20.597s]   CMake variable PCL_ROOT is set to:
+[20.597s] 
+[20.597s]     /usr
+[20.597s] 
+[20.597s]   For compatibility, CMake is ignoring the variable.
+[20.597s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[20.597s] [0m
+[20.619s] -- GTSAM include directory:  /opt/ros/humble/lib/cmake/GTSAM/../../../include
+[20.887s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[21.320s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[21.478s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[21.498s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[21.518s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[21.518s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[21.518s] -- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so
+[21.599s] -- Configuring done
+[21.755s] -- Generating done
+[21.811s] -- Build files have been written to: /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam
+[21.852s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_generator_c[0m
+[21.853s] [35m[1mConsolidate compiler generated dependencies of target scan_context[0m
+[21.853s] [35m[1mConsolidate compiler generated dependencies of target fast_max-clique_finder[0m
+[21.864s] [  1%] Built target disco_slam__cpp
+[21.865s] [  8%] Built target disco_slam__rosidl_generator_c
+[21.873s] [ 17%] Built target fast_max-clique_finder
+[21.877s] [ 17%] Built target ament_cmake_python_copy_disco_slam
+[21.878s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_cpp[0m
+[21.878s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_cpp[0m
+[21.879s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_cpp[0m
+[21.880s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_c[0m
+[21.881s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_c[0m
+[21.881s] [ 20%] Built target scan_context
+[21.881s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_c[0m
+[21.897s] [ 34%] Built target disco_slam__rosidl_typesupport_fastrtps_cpp
+[21.898s] [ 34%] Built target disco_slam__rosidl_typesupport_introspection_cpp
+[21.898s] [ 41%] Built target disco_slam__rosidl_typesupport_c
+[21.898s] [ 48%] Built target disco_slam__rosidl_typesupport_fastrtps_c
+[21.899s] [ 55%] Built target disco_slam__rosidl_typesupport_cpp
+[21.900s] [ 62%] Built target disco_slam__rosidl_typesupport_introspection_c
+[21.918s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_path_to_tum[0m
+[21.920s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_featureExtraction[0m
+[21.920s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_imageProjection[0m
+[21.924s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_mapOptmization[0m
+[21.925s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_imuPreintegration[0m
+[21.925s] [35m[1mConsolidate compiler generated dependencies of target disco_slam_mapFusion[0m
+[21.954s] [ 65%] Built target disco_slam_path_to_tum
+[21.971s] [ 68%] Built target disco_slam_imageProjection
+[21.976s] [ 72%] Built target disco_slam_featureExtraction
+[21.986s] [ 75%] Built target disco_slam_imuPreintegration
+[21.988s] [ 79%] Built target disco_slam_mapOptmization
+[21.988s] [ 82%] Built target disco_slam_mapFusion
+[21.993s] [ 82%] Built target disco_slam
+[22.026s] [ 84%] Built target disco_slam__py
+[22.042s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_generator_py[0m
+[22.058s] [ 89%] Built target disco_slam__rosidl_generator_py
+[22.072s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_c__pyext[0m
+[22.074s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_c__pyext[0m
+[22.075s] [35m[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_c__pyext[0m
+[22.092s] [100%] Built target disco_slam__rosidl_typesupport_c__pyext
+[22.092s] [100%] Built target disco_slam__rosidl_typesupport_introspection_c__pyext
+[22.093s] [100%] Built target disco_slam__rosidl_typesupport_fastrtps_c__pyext
+[22.202s] running egg_info
+[22.202s] writing disco_slam.egg-info/PKG-INFO
+[22.203s] writing dependency_links to disco_slam.egg-info/dependency_links.txt
+[22.203s] writing top-level names to disco_slam.egg-info/top_level.txt
+[22.205s] reading manifest file 'disco_slam.egg-info/SOURCES.txt'
+[22.206s] writing manifest file 'disco_slam.egg-info/SOURCES.txt'
+[22.240s] [100%] Built target ament_cmake_python_build_disco_slam_egg
+[22.252s] Invoked command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --build /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam -- -j20 -l20
+[22.265s] Invoking command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam': CMAKE_PREFIX_PATH=/opt/ros/humble PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --install /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam
+[22.270s] -- Install configuration: ""
+[22.270s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/rosidl_interfaces/disco_slam
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_generator_c__visibility_control.h
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__functions.h
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__functions.h
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.h
+[22.271s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__struct.h
+[22.272s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__functions.c
+[22.272s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.h
+[22.272s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__struct.h
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__functions.c
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/context_info.h
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/cloud_info.h
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/library_path.sh
+[22.273s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/library_path.dsv
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_generator_c.so
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.273s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_fastrtps_c.h
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_fastrtps_c.h
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_fastrtps_c.so
+[22.274s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.275s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.275s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/context_info.hpp
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_generator_cpp__visibility_control.hpp
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/cloud_info.hpp
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__builder.hpp
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__traits.hpp
+[22.276s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__builder.hpp
+[22.277s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.hpp
+[22.277s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__struct.hpp
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__traits.hpp
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.hpp
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__struct.hpp
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.278s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[22.279s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.279s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/dds_fastrtps
+[22.279s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_fastrtps_cpp.hpp
+[22.279s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_fastrtps_cpp.hpp
+[22.280s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_fastrtps_cpp.so
+[22.280s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.280s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.c
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_introspection_c.h
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_introspection_c.h
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.c
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_introspection_c.so
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_c.so
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail
+[22.281s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_introspection_cpp.hpp
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_introspection_cpp.hpp
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.cpp
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.cpp
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_introspection_cpp.so
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_cpp.so
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/pythonpath.sh
+[22.282s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/pythonpath.dsv
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info
+[22.282s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/dependency_links.txt
+[22.282s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/top_level.txt
+[22.282s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/PKG-INFO
+[22.282s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/SOURCES.txt
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_fastrtps_c.c
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_context_info.py
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_context_info_s.c
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_cloud_info.py
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/__init__.py
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_cloud_info_s.c
+[22.282s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/libdisco_slam__rosidl_generator_py.so
+[22.283s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_c.c
+[22.283s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/__init__.py
+[22.283s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_introspection_c.c
+[22.314s] Listing '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam'...
+[22.314s] Compiling '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/__init__.py'...
+[22.314s] Listing '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg'...
+[22.319s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+[22.320s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+[22.321s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+[22.321s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_generator_py.so
+[22.321s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/CloudInfo.idl
+[22.321s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/ContextInfo.idl
+[22.322s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/CloudInfo.msg
+[22.322s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/ContextInfo.msg
+[22.322s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_imageProjection
+[22.322s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_featureExtraction
+[22.322s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_mapOptmization
+[22.323s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_imuPreintegration
+[22.323s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_mapFusion
+[22.323s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_path_to_tum
+[22.324s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/libfast_max-clique_finder.so
+[22.324s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/libscan_context.so
+[22.325s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch
+[22.325s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_multi.launch
+[22.326s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run.launch
+[22.326s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run.launch.py
+[22.326s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_fusion.launch
+[22.327s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include
+[22.327s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_rviz.launch
+[22.327s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config
+[22.328s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz1.rviz
+[22.328s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz.rviz
+[22.329s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz_ros2.rviz
+[22.329s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz2_ros2.rviz
+[22.329s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/robot.urdf.xacro
+[22.329s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz2.rviz
+[22.330s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz1_ros2.rviz
+[22.330s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole
+[22.331s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_error.conf
+[22.331s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_warn.conf
+[22.331s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_info.conf
+[22.332s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_loam.launch
+[22.332s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_robot_state_publisher.launch
+[22.332s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_navsat.launch
+[22.332s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_path_to_tum.launch
+[22.332s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config
+[22.333s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion.yaml
+[22.333s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion_k.yaml
+[22.333s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion_ue.yaml
+[22.334s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/package_run_dependencies/disco_slam
+[22.334s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/parent_prefix_path/disco_slam
+[22.334s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/ament_prefix_path.sh
+[22.335s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/ament_prefix_path.dsv
+[22.335s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/path.sh
+[22.335s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/path.dsv
+[22.336s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.bash
+[22.336s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.sh
+[22.336s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.zsh
+[22.336s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.dsv
+[22.336s] -- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/package.dsv
+[22.336s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/packages/disco_slam
+[22.336s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cppExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cppExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cppExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cppExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cppExport-noconfig.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_pyExport.cmake
+[22.337s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_pyExport-noconfig.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_dependencies-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_include_directories-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_libraries-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_targets-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slamConfig.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slamConfig-version.cmake
+[22.338s] -- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/package.xml
+[22.341s] Invoked command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --install /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam

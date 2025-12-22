@@ -1,0 +1,305 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-41f08c20181b58f8fbcf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				},
+				{
+					"build" : "disco_slam__py",
+					"jsonFile" : "directory-disco_slam__py-ab3d613f7d44a93ee6e9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "build/disco_slam/disco_slam__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "disco_slam",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_disco_slam_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_disco_slam_egg-5615af15ae81238c3523.json",
+					"name" : "ament_cmake_python_build_disco_slam_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_disco_slam::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_disco_slam-26e87361c9bd821f3d7d.json",
+					"name" : "ament_cmake_python_copy_disco_slam",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam-422a465012e94187c5c9.json",
+					"name" : "disco_slam",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__cpp-19d8837cf3605c17f6a4.json",
+					"name" : "disco_slam__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "disco_slam__py::@fcf04de71a2bb8f24210",
+					"jsonFile" : "target-disco_slam__py-2cc4da5ba503f887cc69.json",
+					"name" : "disco_slam__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_generator_c-0e5ae82976e5255463ee.json",
+					"name" : "disco_slam__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_generator_py-441fa84c3acd6e0062ab.json",
+					"name" : "disco_slam__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_c-a8520c44e4944d6959f8.json",
+					"name" : "disco_slam__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_c__pyext-5d30625522ecaacffcf1.json",
+					"name" : "disco_slam__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_cpp-a79877fa8f55e60f1b43.json",
+					"name" : "disco_slam__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_fastrtps_c-72345b74c93fd12ad7a2.json",
+					"name" : "disco_slam__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_fastrtps_c__pyext-875874413440d445689f.json",
+					"name" : "disco_slam__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_fastrtps_cpp-8775ee2a2843f05f25a4.json",
+					"name" : "disco_slam__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_introspection_c-5dce5874fdf68fd271dc.json",
+					"name" : "disco_slam__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_introspection_c__pyext-6b74d315c13fbb164709.json",
+					"name" : "disco_slam__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam__rosidl_typesupport_introspection_cpp-97d82b037f658d35ec54.json",
+					"name" : "disco_slam__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_featureExtraction::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_featureExtraction-4a871e365d5154a49cc0.json",
+					"name" : "disco_slam_featureExtraction",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_imageProjection::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_imageProjection-45e9dcb8df0bc2eff60a.json",
+					"name" : "disco_slam_imageProjection",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_imuPreintegration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_imuPreintegration-130b7bc916ef26d2e111.json",
+					"name" : "disco_slam_imuPreintegration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_mapFusion::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_mapFusion-e2521b3dad51b60d7da3.json",
+					"name" : "disco_slam_mapFusion",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_mapOptmization::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_mapOptmization-89502609e0c02f2c6dfe.json",
+					"name" : "disco_slam_mapOptmization",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_path_to_tum::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_path_to_tum-a3bbeeeedf5b3123d3b8.json",
+					"name" : "disco_slam_path_to_tum",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "disco_slam_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-disco_slam_uninstall-38868a44cb9857d7eed0.json",
+					"name" : "disco_slam_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "fast_max-clique_finder::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-fast_max-clique_finder-c89f3a555554355c1ba9.json",
+					"name" : "fast_max-clique_finder",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "scan_context::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-scan_context-61df3044aca74ccf2f34.json",
+					"name" : "scan_context",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-7f67db0c2139b08d3d6b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam",
+		"source" : "/home/john22/disco_origin/src/disco_slam_copy"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

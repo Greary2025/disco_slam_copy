@@ -1,0 +1,512 @@
+[0.000000] (-) TimerEvent: {}
+[0.000462] (disco_slam) JobQueued: {'identifier': 'disco_slam', 'dependencies': OrderedDict()}
+[0.000548] (disco_slam) JobStarted: {'identifier': 'disco_slam'}
+[0.008614] (disco_slam) JobProgress: {'identifier': 'disco_slam', 'progress': 'cmake'}
+[0.010173] (disco_slam) JobProgress: {'identifier': 'disco_slam', 'progress': 'build'}
+[0.011173] (disco_slam) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam', '--', '-j20', '-l20'], 'cwd': '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('ARCH', 'x86_64'), ('IS_WSL_ENVIRONMENT', 'true'), ('HTTPS_PROXY', 'http://127.0.0.1:16888'), ('no_proxy', '172.31.*,172.30.*,172.29.*,172.28.*,172.27.*,172.26.*,172.25.*,172.24.*,172.23.*,172.22.*,172.21.*,172.20.*,172.19.*,172.18.*,172.17.*,172.16.*,10.*,192.168.*,127.*,localhost,<local>'), ('AI_AGENT', 'TRAE'), ('USER', 'john22'), ('DISTRO_COMMIT', '6165a759ee97b11aad1fc891db67a854c0786f11'), ('GIT_ASKPASS', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/extensions/git/dist/askpass.sh'), ('SERVER_LISTEN_FLAG', '--port=0'), ('MANAGER_LOGS_DIR', '/home/john22/.trae-server/manager-logs/resolve-1766382402873_573826'), ('SCRIPT_ID', 'f049c2ca990f759ddeb57033'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/bin/helpers/browser.sh'), ('SERVER_CONNECTION_TOKEN', 'eE5WJJnYOnc2LKTdUPiCVB0Hkwj9RTMh'), ('HOME', '/home/john22'), ('TERM_PROGRAM_VERSION', '1.104.3'), ('SERVER_APP_NAME', 'Trae'), ('NO_PROXY', '172.31.*,172.30.*,172.29.*,172.28.*,172.27.*,172.26.*,172.25.*,172.24.*,172.23.*,172.22.*,172.21.*,172.20.*,172.19.*,172.18.*,172.17.*,172.16.*,10.*,192.168.*,127.*,localhost,<local>'), ('SERVER_BINARY', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/node'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-e217df7d-3764-4827-9d35-a75f21bce730.sock'), ('OS_RELEASE_ID', 'ubuntu'), ('TRAE_SANDBOX_CLI_PATH', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/modules/sandbox/trae-sandbox'), ('ROS_PYTHON_VERSION', '3'), ('TRAE_RESOLVE_TYPE', 'wsl'), ('PAGER', ''), ('VSCODE_GIT_ASKPASS_MAIN', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/extensions/git/dist/askpass-main.js'), ('PS1', '\\n(TraeAI-27) \\w [$?] $'), ('VSCODE_GIT_ASKPASS_NODE', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/node'), ('TRAE_AI_SHELL_ID', '27'), ('TRAE_SANDBOX_SOURCE_FLAG_PATH', '/tmp/sandbox-source-flag-900c326e-e937-48c3-aa7a-6000f7b53d70'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('SERVER_DIR', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'ubuntu-22.04'), ('TRAE_SANDBOX_STORAGE_PATH', '/home/john22/.trae-server/ai-agent/sandbox'), ('SAFE_RM_AUTO_ADD_TEMP', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('https_proxy', 'http://127.0.0.1:16888'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'john22'), ('MANAGER_DATA_DIR', '/home/john22/.trae-server'), ('NAME', 'Greary'), ('WSL_INTEROP', '/run/WSL/406_interop'), ('SAFE_RM_DENIED_PATH', '/home/john22/disco_origin/src/disco_slam_copy/.vscode:/home/john22/disco_origin/src/disco_slam_copy/.trae:/home/john22/disco_origin/src/disco_slam_copy/.git'), ('http_proxy', 'http://127.0.0.1:16888'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TRAE_REMOTE_SKIP_REMOTE_CHECK', 'true'), ('TERM', 'xterm-256color'), ('DISTRO_VERSION', '1.104.3'), ('EXTRACT_RETRY_COUNT', '0'), ('ROS_LOCALHOST_ONLY', '0'), ('AHA_RUNTIME_DIR', '/home/john22/.trae-server/trae-sockets'), ('vscode_base_dir', '/home/john22/.trae-server'), ('CODELLDB_LAUNCH_CONNECT_FILE', '/home/john22/.trae-server/data/User/workspaceStorage/46ccdd34fc5a9f86e4d4fe9257644f42/vadimcn.vscode-lldb/rpcaddress.txt'), ('PATH', '/opt/ros/humble/bin:\\home\\john22/.trae-server/sdks/workspaces/46ccdd34/versions/node/current:\\home\\john22/.trae-server/sdks/versions/node/current:/home/john22/.trae-server/extensions/vadimcn.vscode-lldb-1.12.0/bin:\\home\\john22/.trae-server/sdks/workspaces/46ccdd34/versions/node/current:\\home\\john22/.trae-server/sdks/versions/node/current:/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Bandizip/:/mnt/c/msys64/ucrt64/bin:/mnt/c/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/Greary/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Greary/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Users/Greary/AppData/Local/Programs/Trae/resources/app/bin/lib:/snap/bin:/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/bundled/scripts/noConfigScripts'), ('PLATFORM', 'linux'), ('DISTRO_QUALITY', 'stable'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('SERVER_SCRIPT', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/index_trae.js'), ('DISPLAY', ':0'), ('FILESYSTEM_CASE_SENSITIVE', 'true'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-e49cc476aae8006c.txt'), ('LANG', 'en_US.UTF-8'), ('PYTHONSTARTUP', '/home/john22/.trae-server/data/User/workspaceStorage/46ccdd34fc5a9f86e4d4fe9257644f42/ms-python.python/pythonrc.py'), ('SERVER_PIDFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.pid'), ('TRAE_SANDBOX_CONFIG_NAME', '69469b8d5a0284f59fb25391'), ('SERVER_LOGS_DIR', '/home/john22/.trae-server/logs'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('DOWNLOAD_RETRY_COUNT', '0'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-d34021d773.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('__trae_PS1', '\\n(TraeAI-27) \\w [$?] $'), ('SERVER_HOST', '127.0.0.1'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('SERVER_LOGFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.log'), ('TMP_DIR', '/run/user/1000/'), ('SERVER_TOKENFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.token'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', ''), ('SERVER_EXTENSIONS_DIR', '/home/john22/.trae-server/extensions'), ('PWD', '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam'), ('SAFE_RM_ALLOWED_PATH', '/home/john22/disco_origin/src/disco_slam_copy'), ('SERVER_APP_VERSION', '1.104.3'), ('TERM_PRODUCT', 'Trae'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('SERVER_ARCH', 'x86_64'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('HTTP_PROXY', 'http://127.0.0.1:16888'), ('SAFE_RM_PROTECTION_FLAG', '/tmp/safe-rm-protection-flag-863a6a77-f2bc-4a49-9fc9-6945d325b9f0'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('SAFE_RM_SOURCE_FLAG', '/tmp/safe-rm-source-flag-b789e693-6f6d-4baa-ae33-2d1581344ffd'), ('SERVER_APP_QUALITY', 'stable'), ('SERVER_DATA_DIR', '/home/john22/.trae-server'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.043920] (disco_slam) StdoutLine: {'line': b'-- Configuring for ROS 2...\n'}
+[0.044535] (disco_slam) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.099141] (-) TimerEvent: {}
+[0.168895] (disco_slam) StdoutLine: {'line': b'-- Found rclcpp: 16.0.16 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.199331] (-) TimerEvent: {}
+[0.299834] (-) TimerEvent: {}
+[0.341577] (disco_slam) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.343296] (disco_slam) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.349181] (disco_slam) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.357081] (disco_slam) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.366047] (disco_slam) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.393360] (disco_slam) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.394177] (disco_slam) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.400020] (-) TimerEvent: {}
+[0.500620] (-) TimerEvent: {}
+[0.601490] (-) TimerEvent: {}
+[0.702240] (-) TimerEvent: {}
+[0.803107] (-) TimerEvent: {}
+[0.903629] (-) TimerEvent: {}
+[1.004181] (-) TimerEvent: {}
+[1.104792] (-) TimerEvent: {}
+[1.205293] (-) TimerEvent: {}
+[1.305769] (-) TimerEvent: {}
+[1.406272] (-) TimerEvent: {}
+[1.506786] (-) TimerEvent: {}
+[1.607319] (-) TimerEvent: {}
+[1.707856] (-) TimerEvent: {}
+[1.808384] (-) TimerEvent: {}
+[1.908967] (-) TimerEvent: {}
+[2.009623] (-) TimerEvent: {}
+[2.110072] (-) TimerEvent: {}
+[2.210605] (-) TimerEvent: {}
+[2.311109] (-) TimerEvent: {}
+[2.411675] (-) TimerEvent: {}
+[2.512159] (-) TimerEvent: {}
+[2.612730] (-) TimerEvent: {}
+[2.713384] (-) TimerEvent: {}
+[2.813997] (-) TimerEvent: {}
+[2.914524] (-) TimerEvent: {}
+[3.015048] (-) TimerEvent: {}
+[3.115522] (-) TimerEvent: {}
+[3.216064] (-) TimerEvent: {}
+[3.316625] (-) TimerEvent: {}
+[3.417063] (-) TimerEvent: {}
+[3.517574] (-) TimerEvent: {}
+[3.618050] (-) TimerEvent: {}
+[3.718561] (-) TimerEvent: {}
+[3.819128] (-) TimerEvent: {}
+[3.919593] (-) TimerEvent: {}
+[4.020091] (-) TimerEvent: {}
+[4.120682] (-) TimerEvent: {}
+[4.221202] (-) TimerEvent: {}
+[4.321784] (-) TimerEvent: {}
+[4.422353] (-) TimerEvent: {}
+[4.522959] (-) TimerEvent: {}
+[4.623590] (-) TimerEvent: {}
+[4.724158] (-) TimerEvent: {}
+[4.824694] (-) TimerEvent: {}
+[4.925207] (-) TimerEvent: {}
+[5.025716] (-) TimerEvent: {}
+[5.126315] (-) TimerEvent: {}
+[5.226782] (-) TimerEvent: {}
+[5.327277] (-) TimerEvent: {}
+[5.427762] (-) TimerEvent: {}
+[5.528410] (-) TimerEvent: {}
+[5.628945] (-) TimerEvent: {}
+[5.729594] (-) TimerEvent: {}
+[5.830130] (-) TimerEvent: {}
+[5.930765] (-) TimerEvent: {}
+[5.967659] (disco_slam) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[6.007817] (disco_slam) StdoutLine: {'line': b'-- Found rclpy: 3.3.19 (/opt/ros/humble/share/rclpy/cmake)\n'}
+[6.008428] (disco_slam) StdoutLine: {'line': b'-- Found tf2: 0.25.17 (/opt/ros/humble/share/tf2/cmake)\n'}
+[6.022978] (disco_slam) StdoutLine: {'line': b'-- Found tf2_ros: 0.25.17 (/opt/ros/humble/share/tf2_ros/cmake)\n'}
+[6.030993] (-) TimerEvent: {}
+[6.085268] (disco_slam) StdoutLine: {'line': b'-- Found tf2_geometry_msgs: 0.25.17 (/opt/ros/humble/share/tf2_geometry_msgs/cmake)\n'}
+[6.087840] (disco_slam) StdoutLine: {'line': b'-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)\n'}
+[6.089267] (disco_slam) StdoutLine: {'line': b'-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target\n'}
+[6.090194] (disco_slam) StdoutLine: {'line': b'-- Found tf2_eigen: 0.25.17 (/opt/ros/humble/share/tf2_eigen/cmake)\n'}
+[6.092586] (disco_slam) StdoutLine: {'line': b'-- Found cv_bridge: 3.2.1 (/opt/ros/humble/share/cv_bridge/cmake)\n'}
+[6.111420] (disco_slam) StdoutLine: {'line': b'-- Found pcl_conversions: 2.4.5 (/opt/ros/humble/share/pcl_conversions/cmake)\n'}
+[6.131232] (-) TimerEvent: {}
+[6.137202] (disco_slam) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[6.231458] (-) TimerEvent: {}
+[6.331919] (-) TimerEvent: {}
+[6.432494] (-) TimerEvent: {}
+[6.533039] (-) TimerEvent: {}
+[6.633661] (-) TimerEvent: {}
+[6.734194] (-) TimerEvent: {}
+[6.834748] (-) TimerEvent: {}
+[6.935505] (-) TimerEvent: {}
+[7.036116] (-) TimerEvent: {}
+[7.136827] (-) TimerEvent: {}
+[7.237358] (-) TimerEvent: {}
+[7.337864] (-) TimerEvent: {}
+[7.438356] (-) TimerEvent: {}
+[7.538836] (-) TimerEvent: {}
+[7.639323] (-) TimerEvent: {}
+[7.739933] (-) TimerEvent: {}
+[7.840416] (-) TimerEvent: {}
+[7.940986] (-) TimerEvent: {}
+[7.962650] (disco_slam) StdoutLine: {'line': b'-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n'}
+[8.041209] (-) TimerEvent: {}
+[8.141945] (-) TimerEvent: {}
+[8.242571] (-) TimerEvent: {}
+[8.343213] (-) TimerEvent: {}
+[8.443807] (-) TimerEvent: {}
+[8.544375] (-) TimerEvent: {}
+[8.644909] (-) TimerEvent: {}
+[8.745462] (-) TimerEvent: {}
+[8.846050] (-) TimerEvent: {}
+[8.946840] (-) TimerEvent: {}
+[9.047420] (-) TimerEvent: {}
+[9.147955] (-) TimerEvent: {}
+[9.248501] (-) TimerEvent: {}
+[9.349003] (-) TimerEvent: {}
+[9.449529] (-) TimerEvent: {}
+[9.549990] (-) TimerEvent: {}
+[9.650619] (-) TimerEvent: {}
+[9.751149] (-) TimerEvent: {}
+[9.851653] (-) TimerEvent: {}
+[9.952078] (-) TimerEvent: {}
+[10.052607] (-) TimerEvent: {}
+[10.153094] (-) TimerEvent: {}
+[10.253565] (-) TimerEvent: {}
+[10.354080] (-) TimerEvent: {}
+[10.454543] (-) TimerEvent: {}
+[10.555047] (-) TimerEvent: {}
+[10.655507] (-) TimerEvent: {}
+[10.756012] (-) TimerEvent: {}
+[10.856520] (-) TimerEvent: {}
+[10.957038] (-) TimerEvent: {}
+[11.057568] (-) TimerEvent: {}
+[11.158085] (-) TimerEvent: {}
+[11.258591] (-) TimerEvent: {}
+[11.359088] (-) TimerEvent: {}
+[11.459584] (-) TimerEvent: {}
+[11.560238] (-) TimerEvent: {}
+[11.660749] (-) TimerEvent: {}
+[11.761371] (-) TimerEvent: {}
+[11.861830] (-) TimerEvent: {}
+[11.962355] (-) TimerEvent: {}
+[11.977812] (disco_slam) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[11.984447] (disco_slam) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[12.062659] (-) TimerEvent: {}
+[12.163235] (-) TimerEvent: {}
+[12.263873] (-) TimerEvent: {}
+[12.364420] (-) TimerEvent: {}
+[12.464940] (-) TimerEvent: {}
+[12.565422] (-) TimerEvent: {}
+[12.665907] (-) TimerEvent: {}
+[12.766485] (-) TimerEvent: {}
+[12.866985] (-) TimerEvent: {}
+[12.967490] (-) TimerEvent: {}
+[13.068032] (-) TimerEvent: {}
+[13.168570] (-) TimerEvent: {}
+[13.269098] (-) TimerEvent: {}
+[13.369581] (-) TimerEvent: {}
+[13.470136] (-) TimerEvent: {}
+[13.570647] (-) TimerEvent: {}
+[13.671169] (-) TimerEvent: {}
+[13.771684] (-) TimerEvent: {}
+[13.872143] (-) TimerEvent: {}
+[13.972637] (-) TimerEvent: {}
+[14.073211] (-) TimerEvent: {}
+[14.090510] (disco_slam) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[14.096140] (disco_slam) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[14.102188] (disco_slam) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[14.173408] (-) TimerEvent: {}
+[14.274001] (-) TimerEvent: {}
+[14.374565] (-) TimerEvent: {}
+[14.475270] (-) TimerEvent: {}
+[14.575742] (-) TimerEvent: {}
+[14.676324] (-) TimerEvent: {}
+[14.776971] (-) TimerEvent: {}
+[14.877480] (-) TimerEvent: {}
+[14.977979] (-) TimerEvent: {}
+[15.078457] (-) TimerEvent: {}
+[15.178990] (-) TimerEvent: {}
+[15.279822] (-) TimerEvent: {}
+[15.380459] (-) TimerEvent: {}
+[15.480984] (-) TimerEvent: {}
+[15.581508] (-) TimerEvent: {}
+[15.682034] (-) TimerEvent: {}
+[15.782506] (-) TimerEvent: {}
+[15.883001] (-) TimerEvent: {}
+[15.983490] (-) TimerEvent: {}
+[16.084099] (-) TimerEvent: {}
+[16.184842] (-) TimerEvent: {}
+[16.200803] (disco_slam) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[16.285049] (-) TimerEvent: {}
+[16.385552] (-) TimerEvent: {}
+[16.486047] (-) TimerEvent: {}
+[16.586531] (-) TimerEvent: {}
+[16.687011] (-) TimerEvent: {}
+[16.787555] (-) TimerEvent: {}
+[16.888095] (-) TimerEvent: {}
+[16.988677] (-) TimerEvent: {}
+[17.089408] (-) TimerEvent: {}
+[17.190116] (-) TimerEvent: {}
+[17.290689] (-) TimerEvent: {}
+[17.391242] (-) TimerEvent: {}
+[17.491708] (-) TimerEvent: {}
+[17.592200] (-) TimerEvent: {}
+[17.692726] (-) TimerEvent: {}
+[17.793201] (-) TimerEvent: {}
+[17.893730] (-) TimerEvent: {}
+[17.994277] (-) TimerEvent: {}
+[18.094908] (-) TimerEvent: {}
+[18.195420] (-) TimerEvent: {}
+[18.295878] (-) TimerEvent: {}
+[18.319120] (disco_slam) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[18.396071] (-) TimerEvent: {}
+[18.496607] (-) TimerEvent: {}
+[18.597097] (-) TimerEvent: {}
+[18.697573] (-) TimerEvent: {}
+[18.798052] (-) TimerEvent: {}
+[18.898694] (-) TimerEvent: {}
+[18.999271] (-) TimerEvent: {}
+[19.099794] (-) TimerEvent: {}
+[19.200238] (-) TimerEvent: {}
+[19.300746] (-) TimerEvent: {}
+[19.401305] (-) TimerEvent: {}
+[19.501816] (-) TimerEvent: {}
+[19.602322] (-) TimerEvent: {}
+[19.702803] (-) TimerEvent: {}
+[19.803350] (-) TimerEvent: {}
+[19.903824] (-) TimerEvent: {}
+[20.004442] (-) TimerEvent: {}
+[20.105087] (-) TimerEvent: {}
+[20.205921] (-) TimerEvent: {}
+[20.306421] (-) TimerEvent: {}
+[20.407010] (-) TimerEvent: {}
+[20.507531] (-) TimerEvent: {}
+[20.565207] (disco_slam) StdoutLine: {'line': b'-- Found nav_msgs: 4.9.0 (/opt/ros/humble/share/nav_msgs/cmake)\n'}
+[20.576699] (disco_slam) StdoutLine: {'line': b'-- Found visualization_msgs: 4.9.0 (/opt/ros/humble/share/visualization_msgs/cmake)\n'}
+[20.590687] (disco_slam) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[20.597483] (disco_slam) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at CMakeLists.txt:84 (find_package):\n'}
+[20.597832] (disco_slam) StderrLine: {'line': b'  Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.\n'}
+[20.597893] (disco_slam) StderrLine: {'line': b'  Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy\n'}
+[20.597940] (disco_slam) StderrLine: {'line': b'  command to set the policy and suppress this warning.\n'}
+[20.597971] (disco_slam) StderrLine: {'line': b'\n'}
+[20.597999] (disco_slam) StderrLine: {'line': b'  CMake variable PCL_ROOT is set to:\n'}
+[20.598026] (disco_slam) StderrLine: {'line': b'\n'}
+[20.598052] (disco_slam) StderrLine: {'line': b'    /usr\n'}
+[20.598083] (disco_slam) StderrLine: {'line': b'\n'}
+[20.598113] (disco_slam) StderrLine: {'line': b'  For compatibility, CMake is ignoring the variable.\n'}
+[20.598141] (disco_slam) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[20.598168] (disco_slam) StderrLine: {'line': b'\x1b[0m\n'}
+[20.607637] (-) TimerEvent: {}
+[20.620023] (disco_slam) StdoutLine: {'line': b'-- GTSAM include directory:  /opt/ros/humble/lib/cmake/GTSAM/../../../include\n'}
+[20.707842] (-) TimerEvent: {}
+[20.808382] (-) TimerEvent: {}
+[20.887904] (disco_slam) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[20.908585] (-) TimerEvent: {}
+[21.009092] (-) TimerEvent: {}
+[21.109719] (-) TimerEvent: {}
+[21.210415] (-) TimerEvent: {}
+[21.310979] (-) TimerEvent: {}
+[21.321171] (disco_slam) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[21.411160] (-) TimerEvent: {}
+[21.478754] (disco_slam) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[21.498991] (disco_slam) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[21.511346] (-) TimerEvent: {}
+[21.518902] (disco_slam) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[21.519324] (disco_slam) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[21.519392] (disco_slam) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[21.599436] (disco_slam) StdoutLine: {'line': b'-- Configuring done\n'}
+[21.611478] (-) TimerEvent: {}
+[21.711929] (-) TimerEvent: {}
+[21.755626] (disco_slam) StdoutLine: {'line': b'-- Generating done\n'}
+[21.811919] (disco_slam) StdoutLine: {'line': b'-- Build files have been written to: /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam\n'}
+[21.812212] (-) TimerEvent: {}
+[21.852653] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_generator_c\x1b[0m\n'}
+[21.853403] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target scan_context\x1b[0m\n'}
+[21.853655] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target fast_max-clique_finder\x1b[0m\n'}
+[21.864845] (disco_slam) StdoutLine: {'line': b'[  1%] Built target disco_slam__cpp\n'}
+[21.866234] (disco_slam) StdoutLine: {'line': b'[  8%] Built target disco_slam__rosidl_generator_c\n'}
+[21.873243] (disco_slam) StdoutLine: {'line': b'[ 17%] Built target fast_max-clique_finder\n'}
+[21.877742] (disco_slam) StdoutLine: {'line': b'[ 17%] Built target ament_cmake_python_copy_disco_slam\n'}
+[21.878516] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_cpp\x1b[0m\n'}
+[21.878765] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[21.879401] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[21.881343] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_c\x1b[0m\n'}
+[21.881480] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[21.881553] (disco_slam) StdoutLine: {'line': b'[ 20%] Built target scan_context\n'}
+[21.882077] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[21.897997] (disco_slam) StdoutLine: {'line': b'[ 34%] Built target disco_slam__rosidl_typesupport_fastrtps_cpp\n'}
+[21.898345] (disco_slam) StdoutLine: {'line': b'[ 34%] Built target disco_slam__rosidl_typesupport_introspection_cpp\n'}
+[21.898858] (disco_slam) StdoutLine: {'line': b'[ 41%] Built target disco_slam__rosidl_typesupport_c\n'}
+[21.899258] (disco_slam) StdoutLine: {'line': b'[ 48%] Built target disco_slam__rosidl_typesupport_fastrtps_c\n'}
+[21.899957] (disco_slam) StdoutLine: {'line': b'[ 55%] Built target disco_slam__rosidl_typesupport_cpp\n'}
+[21.900969] (disco_slam) StdoutLine: {'line': b'[ 62%] Built target disco_slam__rosidl_typesupport_introspection_c\n'}
+[21.912479] (-) TimerEvent: {}
+[21.918664] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_path_to_tum\x1b[0m\n'}
+[21.920238] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_featureExtraction\x1b[0m\n'}
+[21.920833] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_imageProjection\x1b[0m\n'}
+[21.924482] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_mapOptmization\x1b[0m\n'}
+[21.925091] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_imuPreintegration\x1b[0m\n'}
+[21.925870] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam_mapFusion\x1b[0m\n'}
+[21.954879] (disco_slam) StdoutLine: {'line': b'[ 65%] Built target disco_slam_path_to_tum\n'}
+[21.972057] (disco_slam) StdoutLine: {'line': b'[ 68%] Built target disco_slam_imageProjection\n'}
+[21.977079] (disco_slam) StdoutLine: {'line': b'[ 72%] Built target disco_slam_featureExtraction\n'}
+[21.986577] (disco_slam) StdoutLine: {'line': b'[ 75%] Built target disco_slam_imuPreintegration\n'}
+[21.988070] (disco_slam) StdoutLine: {'line': b'[ 79%] Built target disco_slam_mapOptmization\n'}
+[21.988719] (disco_slam) StdoutLine: {'line': b'[ 82%] Built target disco_slam_mapFusion\n'}
+[21.993349] (disco_slam) StdoutLine: {'line': b'[ 82%] Built target disco_slam\n'}
+[22.012755] (-) TimerEvent: {}
+[22.026631] (disco_slam) StdoutLine: {'line': b'[ 84%] Built target disco_slam__py\n'}
+[22.042186] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_generator_py\x1b[0m\n'}
+[22.058562] (disco_slam) StdoutLine: {'line': b'[ 89%] Built target disco_slam__rosidl_generator_py\n'}
+[22.072478] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[22.074212] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[22.075813] (disco_slam) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target disco_slam__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[22.093116] (disco_slam) StdoutLine: {'line': b'[100%] Built target disco_slam__rosidl_typesupport_c__pyext\n'}
+[22.093389] (disco_slam) StdoutLine: {'line': b'[100%] Built target disco_slam__rosidl_typesupport_introspection_c__pyext\n'}
+[22.093461] (disco_slam) StdoutLine: {'line': b'[100%] Built target disco_slam__rosidl_typesupport_fastrtps_c__pyext\n'}
+[22.112965] (-) TimerEvent: {}
+[22.202828] (disco_slam) StdoutLine: {'line': b'running egg_info\n'}
+[22.203284] (disco_slam) StdoutLine: {'line': b'writing disco_slam.egg-info/PKG-INFO\n'}
+[22.203653] (disco_slam) StdoutLine: {'line': b'writing dependency_links to disco_slam.egg-info/dependency_links.txt\n'}
+[22.203951] (disco_slam) StdoutLine: {'line': b'writing top-level names to disco_slam.egg-info/top_level.txt\n'}
+[22.205997] (disco_slam) StdoutLine: {'line': b"reading manifest file 'disco_slam.egg-info/SOURCES.txt'\n"}
+[22.206547] (disco_slam) StdoutLine: {'line': b"writing manifest file 'disco_slam.egg-info/SOURCES.txt'\n"}
+[22.213140] (-) TimerEvent: {}
+[22.240441] (disco_slam) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_disco_slam_egg\n'}
+[22.252607] (disco_slam) CommandEnded: {'returncode': 0}
+[22.254490] (disco_slam) JobProgress: {'identifier': 'disco_slam', 'progress': 'install'}
+[22.264667] (disco_slam) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam'], 'cwd': '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam', 'env': OrderedDict([('PYTHON_BASIC_REPL', '1'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('ARCH', 'x86_64'), ('IS_WSL_ENVIRONMENT', 'true'), ('HTTPS_PROXY', 'http://127.0.0.1:16888'), ('no_proxy', '172.31.*,172.30.*,172.29.*,172.28.*,172.27.*,172.26.*,172.25.*,172.24.*,172.23.*,172.22.*,172.21.*,172.20.*,172.19.*,172.18.*,172.17.*,172.16.*,10.*,192.168.*,127.*,localhost,<local>'), ('AI_AGENT', 'TRAE'), ('USER', 'john22'), ('DISTRO_COMMIT', '6165a759ee97b11aad1fc891db67a854c0786f11'), ('GIT_ASKPASS', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/extensions/git/dist/askpass.sh'), ('SERVER_LISTEN_FLAG', '--port=0'), ('MANAGER_LOGS_DIR', '/home/john22/.trae-server/manager-logs/resolve-1766382402873_573826'), ('SCRIPT_ID', 'f049c2ca990f759ddeb57033'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/bin/helpers/browser.sh'), ('SERVER_CONNECTION_TOKEN', 'eE5WJJnYOnc2LKTdUPiCVB0Hkwj9RTMh'), ('HOME', '/home/john22'), ('TERM_PROGRAM_VERSION', '1.104.3'), ('SERVER_APP_NAME', 'Trae'), ('NO_PROXY', '172.31.*,172.30.*,172.29.*,172.28.*,172.27.*,172.26.*,172.25.*,172.24.*,172.23.*,172.22.*,172.21.*,172.20.*,172.19.*,172.18.*,172.17.*,172.16.*,10.*,192.168.*,127.*,localhost,<local>'), ('SERVER_BINARY', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/node'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-e217df7d-3764-4827-9d35-a75f21bce730.sock'), ('OS_RELEASE_ID', 'ubuntu'), ('TRAE_SANDBOX_CLI_PATH', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/modules/sandbox/trae-sandbox'), ('ROS_PYTHON_VERSION', '3'), ('TRAE_RESOLVE_TYPE', 'wsl'), ('PAGER', ''), ('VSCODE_GIT_ASKPASS_MAIN', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/extensions/git/dist/askpass-main.js'), ('PS1', '\\n(TraeAI-27) \\w [$?] $'), ('VSCODE_GIT_ASKPASS_NODE', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/node'), ('TRAE_AI_SHELL_ID', '27'), ('TRAE_SANDBOX_SOURCE_FLAG_PATH', '/tmp/sandbox-source-flag-900c326e-e937-48c3-aa7a-6000f7b53d70'), ('PYDEVD_DISABLE_FILE_VALIDATION', '1'), ('BUNDLED_DEBUGPY_PATH', '/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/bundled/libs/debugpy'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('SERVER_DIR', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'ubuntu-22.04'), ('TRAE_SANDBOX_STORAGE_PATH', '/home/john22/.trae-server/ai-agent/sandbox'), ('SAFE_RM_AUTO_ADD_TEMP', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('https_proxy', 'http://127.0.0.1:16888'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'john22'), ('MANAGER_DATA_DIR', '/home/john22/.trae-server'), ('NAME', 'Greary'), ('WSL_INTEROP', '/run/WSL/406_interop'), ('SAFE_RM_DENIED_PATH', '/home/john22/disco_origin/src/disco_slam_copy/.vscode:/home/john22/disco_origin/src/disco_slam_copy/.trae:/home/john22/disco_origin/src/disco_slam_copy/.git'), ('http_proxy', 'http://127.0.0.1:16888'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TRAE_REMOTE_SKIP_REMOTE_CHECK', 'true'), ('TERM', 'xterm-256color'), ('DISTRO_VERSION', '1.104.3'), ('EXTRACT_RETRY_COUNT', '0'), ('ROS_LOCALHOST_ONLY', '0'), ('AHA_RUNTIME_DIR', '/home/john22/.trae-server/trae-sockets'), ('vscode_base_dir', '/home/john22/.trae-server'), ('CODELLDB_LAUNCH_CONNECT_FILE', '/home/john22/.trae-server/data/User/workspaceStorage/46ccdd34fc5a9f86e4d4fe9257644f42/vadimcn.vscode-lldb/rpcaddress.txt'), ('PATH', '/opt/ros/humble/bin:\\home\\john22/.trae-server/sdks/workspaces/46ccdd34/versions/node/current:\\home\\john22/.trae-server/sdks/versions/node/current:/home/john22/.trae-server/extensions/vadimcn.vscode-lldb-1.12.0/bin:\\home\\john22/.trae-server/sdks/workspaces/46ccdd34/versions/node/current:\\home\\john22/.trae-server/sdks/versions/node/current:/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/java8path:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Bandizip/:/mnt/c/msys64/ucrt64/bin:/mnt/c/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/Greary/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Greary/AppData/Local/Programs/cursor/resources/app/bin:/mnt/c/Users/Greary/AppData/Local/Programs/Trae/resources/app/bin/lib:/snap/bin:/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/bundled/scripts/noConfigScripts'), ('PLATFORM', 'linux'), ('DISTRO_QUALITY', 'stable'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('SERVER_SCRIPT', '/home/john22/.trae-server/bin/stable-6165a759ee97b11aad1fc891db67a854c0786f11/index_trae.js'), ('DISPLAY', ':0'), ('FILESYSTEM_CASE_SENSITIVE', 'true'), ('VSCODE_DEBUGPY_ADAPTER_ENDPOINTS', '/home/john22/.trae-server/extensions/ms-python.debugpy-2025.14.1-linux-x64/.noConfigDebugAdapterEndpoints/endpoint-e49cc476aae8006c.txt'), ('LANG', 'en_US.UTF-8'), ('PYTHONSTARTUP', '/home/john22/.trae-server/data/User/workspaceStorage/46ccdd34fc5a9f86e4d4fe9257644f42/ms-python.python/pythonrc.py'), ('SERVER_PIDFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.pid'), ('TRAE_SANDBOX_CONFIG_NAME', '69469b8d5a0284f59fb25391'), ('SERVER_LOGS_DIR', '/home/john22/.trae-server/logs'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('DOWNLOAD_RETRY_COUNT', '0'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-d34021d773.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('__trae_PS1', '\\n(TraeAI-27) \\w [$?] $'), ('SERVER_HOST', '127.0.0.1'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('SERVER_LOGFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.log'), ('TMP_DIR', '/run/user/1000/'), ('SERVER_TOKENFILE', '/home/john22/.trae-server/.stable-6165a759ee97b11aad1fc891db67a854c0786f11.token'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('GIT_PAGER', ''), ('SERVER_EXTENSIONS_DIR', '/home/john22/.trae-server/extensions'), ('PWD', '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam'), ('SAFE_RM_ALLOWED_PATH', '/home/john22/disco_origin/src/disco_slam_copy'), ('SERVER_APP_VERSION', '1.104.3'), ('TERM_PRODUCT', 'Trae'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('SERVER_ARCH', 'x86_64'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('HTTP_PROXY', 'http://127.0.0.1:16888'), ('SAFE_RM_PROTECTION_FLAG', '/tmp/safe-rm-protection-flag-863a6a77-f2bc-4a49-9fc9-6945d325b9f0'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('SAFE_RM_SOURCE_FLAG', '/tmp/safe-rm-source-flag-b789e693-6f6d-4baa-ae33-2d1581344ffd'), ('SERVER_APP_QUALITY', 'stable'), ('SERVER_DATA_DIR', '/home/john22/.trae-server'), ('HOSTTYPE', 'x86_64'), ('WSLENV', ''), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[22.270280] (disco_slam) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[22.270858] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/rosidl_interfaces/disco_slam\n'}
+[22.271073] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.271617] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.271747] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_generator_c__visibility_control.h\n'}
+[22.271810] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.271860] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__functions.h\n'}
+[22.271907] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__functions.h\n'}
+[22.271970] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.h\n'}
+[22.272013] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__struct.h\n'}
+[22.272058] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__functions.c\n'}
+[22.272612] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.h\n'}
+[22.273121] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__struct.h\n'}
+[22.273367] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__functions.c\n'}
+[22.274062] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/context_info.h\n'}
+[22.274171] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/cloud_info.h\n'}
+[22.274228] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/library_path.sh\n'}
+[22.274273] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/library_path.dsv\n'}
+[22.274312] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_generator_c.so\n'}
+[22.274351] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.274391] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.274430] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.274462] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_fastrtps_c.h\n'}
+[22.274505] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_fastrtps_c.h\n'}
+[22.274859] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[22.275016] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_fastrtps_c.so\n'}
+[22.275214] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.275465] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.275665] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/context_info.hpp\n'}
+[22.276340] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[22.276870] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/cloud_info.hpp\n'}
+[22.277116] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.277170] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__builder.hpp\n'}
+[22.277210] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__traits.hpp\n'}
+[22.277244] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__builder.hpp\n'}
+[22.277375] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.hpp\n'}
+[22.277599] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__struct.hpp\n'}
+[22.277824] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__traits.hpp\n'}
+[22.278561] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.hpp\n'}
+[22.278678] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__struct.hpp\n'}
+[22.279040] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.279137] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.279189] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[22.279464] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.279653] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/dds_fastrtps\n'}
+[22.280037] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[22.280125] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[22.280450] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_fastrtps_cpp.so\n'}
+[22.280769] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.281197] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.281382] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.281806] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.c\n'}
+[22.281945] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_introspection_c.h\n'}
+[22.282013] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_introspection_c.h\n'}
+[22.282068] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.c\n'}
+[22.282117] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[22.282182] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_introspection_c.so\n'}
+[22.282229] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_c.so\n'}
+[22.282273] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam\n'}
+[22.282319] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg\n'}
+[22.282362] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail\n'}
+[22.282403] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__rosidl_typesupport_introspection_cpp.hpp\n'}
+[22.282445] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__rosidl_typesupport_introspection_cpp.hpp\n'}
+[22.282487] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/cloud_info__type_support.cpp\n'}
+[22.282529] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/include/disco_slam/disco_slam/msg/detail/context_info__type_support.cpp\n'}
+[22.282570] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_introspection_cpp.so\n'}
+[22.282612] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_typesupport_cpp.so\n'}
+[22.282657] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/pythonpath.sh\n'}
+[22.282697] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/pythonpath.dsv\n'}
+[22.282739] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info\n'}
+[22.282780] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[22.282826] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/top_level.txt\n'}
+[22.282867] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/PKG-INFO\n'}
+[22.282910] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam-1.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[22.282950] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam\n'}
+[22.282990] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[22.283031] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.283080] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.283123] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.283166] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg\n'}
+[22.283209] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_context_info.py\n'}
+[22.283250] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_context_info_s.c\n'}
+[22.283291] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_cloud_info.py\n'}
+[22.283331] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/__init__.py\n'}
+[22.283371] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg/_cloud_info_s.c\n'}
+[22.283411] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/libdisco_slam__rosidl_generator_py.so\n'}
+[22.283490] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_c.c\n'}
+[22.283610] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/__init__.py\n'}
+[22.283670] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/_disco_slam_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[22.313316] (-) TimerEvent: {}
+[22.314972] (disco_slam) StdoutLine: {'line': b"Listing '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam'...\n"}
+[22.315248] (disco_slam) StdoutLine: {'line': b"Compiling '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/__init__.py'...\n"}
+[22.315318] (disco_slam) StdoutLine: {'line': b"Listing '/home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/msg'...\n"}
+[22.319735] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.320432] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.321179] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/local/lib/python3.10/dist-packages/disco_slam/disco_slam_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[22.321726] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/libdisco_slam__rosidl_generator_py.so\n'}
+[22.322090] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/CloudInfo.idl\n'}
+[22.322316] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/ContextInfo.idl\n'}
+[22.322483] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/CloudInfo.msg\n'}
+[22.322866] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/msg/ContextInfo.msg\n'}
+[22.322979] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_imageProjection\n'}
+[22.323042] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_featureExtraction\n'}
+[22.323145] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_mapOptmization\n'}
+[22.323222] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_imuPreintegration\n'}
+[22.323649] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_mapFusion\n'}
+[22.324081] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/disco_slam_path_to_tum\n'}
+[22.324586] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/libfast_max-clique_finder.so\n'}
+[22.324987] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/lib/disco_slam/libscan_context.so\n'}
+[22.325449] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch\n'}
+[22.325571] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_multi.launch\n'}
+[22.326177] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run.launch\n'}
+[22.326775] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run.launch.py\n'}
+[22.327095] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_fusion.launch\n'}
+[22.327621] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include\n'}
+[22.327754] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_rviz.launch\n'}
+[22.327822] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config\n'}
+[22.328325] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz1.rviz\n'}
+[22.329012] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz.rviz\n'}
+[22.329455] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz_ros2.rviz\n'}
+[22.329714] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz2_ros2.rviz\n'}
+[22.329925] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/robot.urdf.xacro\n'}
+[22.330038] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz2.rviz\n'}
+[22.330612] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/config/rviz1_ros2.rviz\n'}
+[22.331139] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole\n'}
+[22.331422] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_error.conf\n'}
+[22.331624] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_warn.conf\n'}
+[22.332057] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/rosconsole/rosconsole_info.conf\n'}
+[22.332452] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_loam.launch\n'}
+[22.332863] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_robot_state_publisher.launch\n'}
+[22.333163] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/include/module_navsat.launch\n'}
+[22.333250] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/launch/run_path_to_tum.launch\n'}
+[22.333296] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config\n'}
+[22.333520] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion.yaml\n'}
+[22.333731] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion_k.yaml\n'}
+[22.333951] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/config/mapfusion_ue.yaml\n'}
+[22.334213] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/package_run_dependencies/disco_slam\n'}
+[22.334694] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/parent_prefix_path/disco_slam\n'}
+[22.335004] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/ament_prefix_path.sh\n'}
+[22.335322] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/ament_prefix_path.dsv\n'}
+[22.335835] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/path.sh\n'}
+[22.335989] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/environment/path.dsv\n'}
+[22.336246] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.bash\n'}
+[22.336824] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.sh\n'}
+[22.336891] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.zsh\n'}
+[22.336942] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/local_setup.dsv\n'}
+[22.337102] (disco_slam) StdoutLine: {'line': b'-- Installing: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/package.dsv\n'}
+[22.337223] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/ament_index/resource_index/packages/disco_slam\n'}
+[22.337345] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cExport.cmake\n'}
+[22.337507] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cExport-noconfig.cmake\n'}
+[22.337937] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[22.337988] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[22.338028] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_cppExport.cmake\n'}
+[22.338063] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[22.338097] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[22.338130] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cExport.cmake\n'}
+[22.338166] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[22.338209] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cExport.cmake\n'}
+[22.338241] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[22.338271] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[22.338303] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[22.338333] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cppExport.cmake\n'}
+[22.338362] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slam__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[22.338392] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_pyExport.cmake\n'}
+[22.338419] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/export_disco_slam__rosidl_generator_pyExport-noconfig.cmake\n'}
+[22.338448] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake-extras.cmake\n'}
+[22.338476] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[22.338505] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[22.338536] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[22.338564] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[22.338595] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[22.338626] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[22.338656] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slamConfig.cmake\n'}
+[22.338685] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/cmake/disco_slamConfig-version.cmake\n'}
+[22.338714] (disco_slam) StdoutLine: {'line': b'-- Up-to-date: /home/john22/disco_origin/src/disco_slam_copy/install/disco_slam/share/disco_slam/package.xml\n'}
+[22.341749] (disco_slam) CommandEnded: {'returncode': 0}
+[22.362646] (disco_slam) JobEnded: {'identifier': 'disco_slam', 'rc': 0}
+[22.364380] (-) EventReactorShutdown: {}

@@ -1,6 +1,6 @@
 #include "utility.h"
-#include "disco_slam/cloud_info.h"
-#include "disco_slam/context_info.h"
+#include "disco_slam/msg/cloud_info.hpp"
+#include "disco_slam/msg/context_info.hpp"
 
 #include <gtsam/geometry/Rot3.h>
 #include <gtsam/geometry/Pose3.h>
@@ -31,7 +31,7 @@ using symbol_shorthand::G; // GPS pose
 struct PointXYZIRPYT
 {
     PCL_ADD_POINT4D
-    PCL_ADD_INTENSITY;                  // preferred way of adding a XYZ+padding
+    PCL_ADD_INTENSITY                  // preferred way of adding a XYZ+padding
     float roll;
     float pitch;
     float yaw;
@@ -61,36 +61,36 @@ public:
     Values isamCurrentEstimate;
     Eigen::MatrixXd poseCovariance;
 
-    ros::Publisher pubLaserCloudSurround;
-    ros::Publisher pubLaserOdometryGlobal;
-    ros::Publisher pubLaserOdometryIncremental;
-    ros::Publisher pubKeyPoses;
-    ros::Publisher pubPath;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubLaserCloudSurround;
+    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr pubLaserOdometryGlobal;
+    rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr pubLaserOdometryIncremental;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubKeyPoses;
+    rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr pubPath;
 
-    ros::Publisher pubHistoryKeyFrames;
-    ros::Publisher pubIcpKeyFrames;
-    ros::Publisher pubRecentKeyFrames;
-    ros::Publisher pubRecentKeyFrame;
-    ros::Publisher pubCloudRegisteredRaw;
-    ros::Publisher pubLoopConstraintEdge;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubHistoryKeyFrames;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubIcpKeyFrames;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubRecentKeyFrames;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubRecentKeyFrame;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubCloudRegisteredRaw;
+    rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pubLoopConstraintEdge;
 
-    ros::Publisher pubLaserCloudInfo;
+    rclcpp::Publisher<disco_slam::msg::CloudInfo>::SharedPtr pubLaserCloudInfo;
 
     //publish to fusion node
-//    ros::Publisher pubCloudInfoWithPose;
-//    disco_slam::cloud_info cloudInfoWithPose;
-//    std_msgs::Header cloudHeader;
-    ros::Subscriber subGlobalLoop;
-    ros::Publisher pubFeatureCloud;
+//    rclcpp::Publisher<disco_slam::msg::CloudInfo>::SharedPtr pubCloudInfoWithPose;
+//    disco_slam::msg::CloudInfo cloudInfoWithPose;
+//    std_msgs::msg::Header cloudHeader;
+    rclcpp::Subscription<disco_slam::msg::ContextInfo>::SharedPtr subGlobalLoop;
+    rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pubFeatureCloud;
     pcl::PointCloud<PointType>::Ptr laserCloudSurfLastFeature; //
     pcl::PointCloud<PointType>::Ptr laserCloudCornerLastFeature; //
 
-    ros::Subscriber subCloud;
-    ros::Subscriber subGPS;
-    ros::Subscriber subLoop;
+    rclcpp::Subscription<disco_slam::msg::CloudInfo>::SharedPtr subCloud;
+    rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr subGPS;
+    rclcpp::Subscription<std_msgs::msg::Float64MultiArray>::SharedPtr subLoop;
 
-    std::deque<nav_msgs::Odometry> gpsQueue;
-    disco_slam::cloud_info cloudInfo;
+    std::deque<nav_msgs::msg::Odometry> gpsQueue;
+    disco_slam::msg::CloudInfo cloudInfo;
 
     vector<pcl::PointCloud<PointType>::Ptr> cornerCloudKeyFrames;
     vector<pcl::PointCloud<PointType>::Ptr> surfCloudKeyFrames;
@@ -133,7 +133,7 @@ public:
     pcl::VoxelGrid<PointType> downSizeFilterICP;
     pcl::VoxelGrid<PointType> downSizeFilterSurroundingKeyPoses; // for surrounding key poses of scan-to-map optimization
     
-    ros::Time timeLaserInfoStamp;
+    rclcpp::Time timeLaserInfoStamp;
     double timeLaserInfoCur;
 
     float transformTobeMapped[6];
@@ -154,49 +154,49 @@ public:
     vector<pair<int, int>> loopIndexQueue;
     vector<gtsam::Pose3> loopPoseQueue;
     vector<gtsam::noiseModel::Diagonal::shared_ptr> loopNoiseQueue;
-    deque<std_msgs::Float64MultiArray> loopInfoVec;
+    deque<std_msgs::msg::Float64MultiArray> loopInfoVec;
 
-    nav_msgs::Path globalPath;
+    nav_msgs::msg::Path globalPath;
 
     Eigen::Affine3f transPointAssociateToMap;
     Eigen::Affine3f incrementalOdometryAffineFront;
     Eigen::Affine3f incrementalOdometryAffineBack;
 
 
-    mapOptimization()
+    mapOptimization(const rclcpp::NodeOptions & options = rclcpp::NodeOptions()) : ParamServer("disco_slam_map_optimization", options)
     {
         ISAM2Params parameters;
         parameters.relinearizeThreshold = 0.1;
         parameters.relinearizeSkip = 1;
         isam = new ISAM2(parameters);
 
-        pubKeyPoses                 = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/trajectory", 1);
-        pubLaserCloudSurround       = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/map_global", 1);
-        pubLaserOdometryGlobal      = nh.advertise<nav_msgs::Odometry> (robot_id + "/disco_slam/mapping/odometry", 1);
-        pubLaserOdometryIncremental = nh.advertise<nav_msgs::Odometry> (robot_id + "/disco_slam/mapping/odometry_incremental", 1);
-        pubPath                     = nh.advertise<nav_msgs::Path>(robot_id + "/disco_slam/mapping/path", 1);
+        pubKeyPoses                 = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/trajectory", 1);
+        pubLaserCloudSurround       = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/map_global", 1);
+        pubLaserOdometryGlobal      = this->create_publisher<nav_msgs::msg::Odometry> (robot_id + "/disco_slam/mapping/odometry", 1);
+        pubLaserOdometryIncremental = this->create_publisher<nav_msgs::msg::Odometry> (robot_id + "/disco_slam/mapping/odometry_incremental", 1);
+        pubPath                     = this->create_publisher<nav_msgs::msg::Path>(robot_id + "/disco_slam/mapping/path", 1);
 
 
         //for fusion node
         //for
-//        pubCloudInfoWithPose        = nh.advertise<disco_slam::cloud_info> (robot_id + "/disco_slam/mapping/cloud_info", 1);
-        pubFeatureCloud = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/feature_cloud_global", 1);
-        subGlobalLoop = nh.subscribe<disco_slam::context_info>(robot_id + "/context/loop_info", 100, &mapOptimization::contextLoopInfoHandler, this, ros::TransportHints().tcpNoDelay());
+//        pubCloudInfoWithPose        = this->create_publisher<disco_slam::msg::CloudInfo> (robot_id + "/disco_slam/mapping/cloud_info", 1);
+        pubFeatureCloud = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/feature_cloud_global", 1);
+        subGlobalLoop = this->create_subscription<disco_slam::msg::ContextInfo>(robot_id + "/context/loop_info", 100, std::bind(&mapOptimization::contextLoopInfoHandler, this, std::placeholders::_1));
 
-        subCloud = nh.subscribe<disco_slam::cloud_info>(robot_id + "/disco_slam/feature/cloud_info", 1, &mapOptimization::laserCloudInfoHandler, this, ros::TransportHints().tcpNoDelay());
-        subGPS   = nh.subscribe<nav_msgs::Odometry> (gpsTopic, 200, &mapOptimization::gpsHandler, this, ros::TransportHints().tcpNoDelay());
-        subLoop  = nh.subscribe<std_msgs::Float64MultiArray>(robot_id + "/lio_loop/loop_closure_detection", 1, &mapOptimization::loopInfoHandler, this, ros::TransportHints().tcpNoDelay());
+        subCloud = this->create_subscription<disco_slam::msg::CloudInfo>(robot_id + "/disco_slam/feature/cloud_info", 1, std::bind(&mapOptimization::laserCloudInfoHandler, this, std::placeholders::_1));
+        subGPS   = this->create_subscription<nav_msgs::msg::Odometry> (gpsTopic, 200, std::bind(&mapOptimization::gpsHandler, this, std::placeholders::_1));
+        subLoop  = this->create_subscription<std_msgs::msg::Float64MultiArray>(robot_id + "/lio_loop/loop_closure_detection", 1, std::bind(&mapOptimization::loopInfoHandler, this, std::placeholders::_1));
 
-        pubHistoryKeyFrames   = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/icp_loop_closure_history_cloud", 1);
-        pubIcpKeyFrames       = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/icp_loop_closure_corrected_cloud", 1);
-        pubLoopConstraintEdge = nh.advertise<visualization_msgs::MarkerArray>(robot_id + "/disco_slam/mapping/loop_closure_constraints", 1);
+        pubHistoryKeyFrames   = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/icp_loop_closure_history_cloud", 1);
+        pubIcpKeyFrames       = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/icp_loop_closure_corrected_cloud", 1);
+        pubLoopConstraintEdge = this->create_publisher<visualization_msgs::msg::MarkerArray>(robot_id + "/disco_slam/mapping/loop_closure_constraints", 1);
 
-        pubRecentKeyFrames    = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/map_local", 1);
-        pubRecentKeyFrame     = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/cloud_registered", 1);
-        pubCloudRegisteredRaw = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/mapping/cloud_registered_raw", 1);
+        pubRecentKeyFrames    = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/map_local", 1);
+        pubRecentKeyFrame     = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/cloud_registered", 1);
+        pubCloudRegisteredRaw = this->create_publisher<sensor_msgs::msg::PointCloud2>(robot_id + "/disco_slam/mapping/cloud_registered_raw", 1);
 
         //for multi robots
-        pubLaserCloudInfo = nh.advertise<disco_slam::cloud_info> (robot_id + "/disco_slam/mapping/cloud_info", 1);
+        pubLaserCloudInfo = this->create_publisher<disco_slam::msg::CloudInfo> (robot_id + "/disco_slam/mapping/cloud_info", 1);
 
         downSizeFilterCorner.setLeafSize(mappingCornerLeafSize, mappingCornerLeafSize, mappingCornerLeafSize);
         downSizeFilterSurf.setLeafSize(mappingSurfLeafSize, mappingSurfLeafSize, mappingSurfLeafSize);
@@ -252,25 +252,25 @@ public:
         matP = cv::Mat(6, 6, CV_32F, cv::Scalar::all(0));
     }
 
-    void contextLoopInfoHandler(const disco_slam::context_infoConstPtr& msgIn){
+    void contextLoopInfoHandler(const disco_slam::msg::ContextInfo::SharedPtr msgIn){
         //close global loop by do nothing
 //        return;
 
-        if(msgIn->robotID != robot_id)
+        if(msgIn->robot_id != robot_id)
             return;
 
-        int indexFrom = msgIn->numRing;
-        int indexTo = msgIn->numSector;
+        int indexFrom = msgIn->num_ring;
+        int indexTo = msgIn->num_sector;
 
-        gtsam::Pose3 poseBetween = gtsam::Pose3( gtsam::Rot3::RzRyRx(msgIn->poseRoll, msgIn->posePitch, msgIn->poseYaw),
-                                         gtsam::Point3(msgIn->poseX, msgIn->poseY, msgIn->poseZ) );
-        float noiseScore = msgIn->poseIntensity;
+        gtsam::Pose3 poseBetween = gtsam::Pose3( gtsam::Rot3::RzRyRx(msgIn->pose_roll, msgIn->pose_pitch, msgIn->pose_yaw),
+                                         gtsam::Point3(msgIn->pose_x, msgIn->pose_y, msgIn->pose_z) );
+        float noiseScore = msgIn->pose_intensity;
         gtsam::Vector Vector6(6);
         Vector6 << noiseScore, noiseScore, noiseScore, noiseScore, noiseScore,
             noiseScore;
         auto noiseBetween = gtsam::noiseModel::Diagonal::Variances(Vector6);
 
-        double start = ros::Time::now().toSec();;
+        // double start = this->now().seconds();;
         gtSAMgraph.add(BetweenFactor<Pose3>(indexFrom, indexTo, poseBetween, noiseBetween));
         isam->update(gtSAMgraph);
         isam->update();
@@ -288,11 +288,11 @@ public:
 
     }
 
-    void laserCloudInfoHandler(const disco_slam::cloud_infoConstPtr& msgIn)
+    void laserCloudInfoHandler(const disco_slam::msg::CloudInfo::SharedPtr msgIn)
     {
         // extract time stamp
         timeLaserInfoStamp = msgIn->header.stamp;
-        timeLaserInfoCur = msgIn->header.stamp.toSec();
+        timeLaserInfoCur = rclcpp::Time(msgIn->header.stamp).seconds();
 
         // extract info and feature cloud
         cloudInfo = *msgIn;
@@ -324,7 +324,7 @@ public:
         }
     }
 
-    void gpsHandler(const nav_msgs::Odometry::ConstPtr& gpsMsg)
+    void gpsHandler(const nav_msgs::msg::Odometry::SharedPtr gpsMsg)
     {
         gpsQueue.push_back(*gpsMsg);
     }
@@ -409,8 +409,8 @@ public:
 
     void visualizeGlobalMapThread()
     {
-        ros::Rate rate(0.2);
-        while (ros::ok()){
+        rclcpp::Rate rate(0.2);
+        while (rclcpp::ok()){
             rate.sleep();
             publishGlobalMap();
         }
@@ -422,8 +422,9 @@ public:
         cout << "Saving map to pcd files ..." << endl;
         // create directory and remove old files;
         savePCDDirectory = std::getenv("HOME") + savePCDDirectory;
-        int unused = system((std::string("exec rm -r ") + savePCDDirectory).c_str());
-        unused = system((std::string("mkdir ") + savePCDDirectory).c_str());
+        // int unused = system((std::string("exec rm -r ") + savePCDDirectory).c_str());
+        int unused = system((std::string("mkdir ") + savePCDDirectory).c_str());
+        (void) unused;
         // save key frame transformations
         pcl::io::savePCDFileASCII(savePCDDirectory + "trajectory.pcd", *cloudKeyPoses3D);
         pcl::io::savePCDFileASCII(savePCDDirectory + "transformations.pcd", *cloudKeyPoses6D);
@@ -456,7 +457,7 @@ public:
 
     void publishGlobalMap()
     {
-        if (pubLaserCloudSurround.getNumSubscribers() == 0)
+        if (pubLaserCloudSurround->get_subscription_count() == 0)
             return;
 
         if (cloudKeyPoses3D->points.empty() == true)
@@ -498,7 +499,7 @@ public:
         downSizeFilterGlobalMapKeyFrames.setLeafSize(globalMapVisualizationLeafSize, globalMapVisualizationLeafSize, globalMapVisualizationLeafSize); // for global map visualization
         downSizeFilterGlobalMapKeyFrames.setInputCloud(globalMapKeyFrames);
         downSizeFilterGlobalMapKeyFrames.filter(*globalMapKeyFramesDS);
-        publishCloud(&pubLaserCloudSurround, globalMapKeyFramesDS, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+        publishCloud<PointType>(pubLaserCloudSurround, globalMapKeyFramesDS, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
     }
 
 
@@ -517,8 +518,8 @@ public:
         if (loopClosureEnableFlag == false)
             return;
 
-        ros::Rate rate(loopClosureFrequency);
-        while (ros::ok())
+        rclcpp::Rate rate(loopClosureFrequency);
+        while (rclcpp::ok())
         {
             rate.sleep();
             performLoopClosure();
@@ -526,7 +527,7 @@ public:
         }
     }
 
-    void loopInfoHandler(const std_msgs::Float64MultiArray::ConstPtr& loopMsg)
+    void loopInfoHandler(const std_msgs::msg::Float64MultiArray::SharedPtr loopMsg)
     {
         std::lock_guard<std::mutex> lock(mtxLoopInfo);
         if (loopMsg->data.size() != 2)
@@ -563,8 +564,8 @@ public:
             loopFindNearKeyframes(prevKeyframeCloud, loopKeyPre, historyKeyframeSearchNum);
             if (cureKeyframeCloud->size() < 300 || prevKeyframeCloud->size() < 1000)
                 return;
-            if (pubHistoryKeyFrames.getNumSubscribers() != 0)
-                publishCloud(&pubHistoryKeyFrames, prevKeyframeCloud, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+            if (pubHistoryKeyFrames->get_subscription_count() != 0)
+                publishCloud<PointType>(pubHistoryKeyFrames, prevKeyframeCloud, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         }
 
         // ICP Settings
@@ -585,11 +586,11 @@ public:
             return;
 
         // publish corrected cloud
-        if (pubIcpKeyFrames.getNumSubscribers() != 0)
+        if (pubIcpKeyFrames->get_subscription_count() != 0)
         {
             pcl::PointCloud<PointType>::Ptr closed_cloud(new pcl::PointCloud<PointType>());
             pcl::transformPointCloud(*cureKeyframeCloud, *closed_cloud, icp.getFinalTransformation());
-            publishCloud(&pubIcpKeyFrames, closed_cloud, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+            publishCloud<PointType>(pubIcpKeyFrames, closed_cloud, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         }
 
         // Get pose transformation
@@ -767,7 +768,7 @@ public:
         {
             int key_cur = it->first;
             int key_pre = it->second;
-            geometry_msgs::Point p;
+            geometry_msgs::msg::Point p;
             p.x = copy_cloudKeyPoses6D->points[key_cur].x;
             p.y = copy_cloudKeyPoses6D->points[key_cur].y;
             p.z = copy_cloudKeyPoses6D->points[key_cur].z;
@@ -782,7 +783,7 @@ public:
 
         markerArray.markers.push_back(markerNode);
         markerArray.markers.push_back(markerEdge);
-        pubLoopConstraintEdge.publish(markerArray);
+        pubLoopConstraintEdge->publish(markerArray);
     }
 
 
@@ -804,24 +805,24 @@ public:
         // initialization
         if (cloudKeyPoses3D->points.empty())
         {
-            transformTobeMapped[0] = cloudInfo.imuRollInit;
-            transformTobeMapped[1] = cloudInfo.imuPitchInit;
-            transformTobeMapped[2] = cloudInfo.imuYawInit;
+            transformTobeMapped[0] = cloudInfo.imu_roll_init;
+            transformTobeMapped[1] = cloudInfo.imu_pitch_init;
+            transformTobeMapped[2] = cloudInfo.imu_yaw_init;
 
             if (!useImuHeadingInitialization)
                 transformTobeMapped[2] = 0;
 
-            lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imuRollInit, cloudInfo.imuPitchInit, cloudInfo.imuYawInit); // save imu before return;
+            lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imu_roll_init, cloudInfo.imu_pitch_init, cloudInfo.imu_yaw_init); // save imu before return;
             return;
         }
 
         // use imu pre-integration estimation for pose guess
         static bool lastImuPreTransAvailable = false;
         static Eigen::Affine3f lastImuPreTransformation;
-        if (cloudInfo.odomAvailable == true)
+        if (cloudInfo.odom_available == true)
         {
-            Eigen::Affine3f transBack = pcl::getTransformation(cloudInfo.initialGuessX,    cloudInfo.initialGuessY,     cloudInfo.initialGuessZ, 
-                                                               cloudInfo.initialGuessRoll, cloudInfo.initialGuessPitch, cloudInfo.initialGuessYaw);
+            Eigen::Affine3f transBack = pcl::getTransformation(cloudInfo.initial_guess_x,    cloudInfo.initial_guess_y,     cloudInfo.initial_guess_z, 
+                                                               cloudInfo.initial_guess_roll, cloudInfo.initial_guess_pitch, cloudInfo.initial_guess_yaw);
             if (lastImuPreTransAvailable == false)
             {
                 lastImuPreTransformation = transBack;
@@ -835,15 +836,15 @@ public:
 
                 lastImuPreTransformation = transBack;
 
-                lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imuRollInit, cloudInfo.imuPitchInit, cloudInfo.imuYawInit); // save imu before return;
+                lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imu_roll_init, cloudInfo.imu_pitch_init, cloudInfo.imu_yaw_init); // save imu before return;
                 return;
             }
         }
 
         // use imu incremental estimation for pose guess (only rotation)
-        if (cloudInfo.imuAvailable == true)
+        if (cloudInfo.imu_available == true)
         {
-            Eigen::Affine3f transBack = pcl::getTransformation(0, 0, 0, cloudInfo.imuRollInit, cloudInfo.imuPitchInit, cloudInfo.imuYawInit);
+            Eigen::Affine3f transBack = pcl::getTransformation(0, 0, 0, cloudInfo.imu_roll_init, cloudInfo.imu_pitch_init, cloudInfo.imu_yaw_init);
             Eigen::Affine3f transIncre = lastImuTransformation.inverse() * transBack;
 
             Eigen::Affine3f transTobe = trans2Affine3f(transformTobeMapped);
@@ -851,7 +852,7 @@ public:
             pcl::getTranslationAndEulerAngles(transFinal, transformTobeMapped[3], transformTobeMapped[4], transformTobeMapped[5], 
                                                           transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]);
 
-            lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imuRollInit, cloudInfo.imuPitchInit, cloudInfo.imuYawInit); // save imu before return;
+            lastImuTransformation = pcl::getTransformation(0, 0, 0, cloudInfo.imu_roll_init, cloudInfo.imu_pitch_init, cloudInfo.imu_yaw_init); // save imu before return;
             return;
         }
     }
@@ -1317,31 +1318,34 @@ public:
 
             transformUpdate();
         } else {
-            ROS_WARN("Not enough features! Only %d edge and %d planar features available.", laserCloudCornerLastDSNum, laserCloudSurfLastDSNum);
+            RCLCPP_WARN(get_logger(), "Not enough features! Only %d edge and %d planar features available.", laserCloudCornerLastDSNum, laserCloudSurfLastDSNum);
         }
+
+        if (laserCloudCornerLastDSNum < edgeFeatureMinValidNum || laserCloudSurfLastDSNum < surfFeatureMinValidNum)
+            return;
     }
 
     void transformUpdate()
     {
-        if (cloudInfo.imuAvailable == true)
+        if (cloudInfo.imu_available == true)
         {
-            if (std::abs(cloudInfo.imuPitchInit) < 1.4)
+            if (std::abs(cloudInfo.imu_pitch_init) < 1.4)
             {
                 double imuWeight = imuRPYWeight;
-                tf::Quaternion imuQuaternion;
-                tf::Quaternion transformQuaternion;
+                tf2::Quaternion imuQuaternion;
+                tf2::Quaternion transformQuaternion;
                 double rollMid, pitchMid, yawMid;
 
                 // slerp roll
                 transformQuaternion.setRPY(transformTobeMapped[0], 0, 0);
-                imuQuaternion.setRPY(cloudInfo.imuRollInit, 0, 0);
-                tf::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
+                imuQuaternion.setRPY(cloudInfo.imu_roll_init, 0, 0);
+                tf2::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
                 transformTobeMapped[0] = rollMid;
 
                 // slerp pitch
                 transformQuaternion.setRPY(0, transformTobeMapped[1], 0);
-                imuQuaternion.setRPY(0, cloudInfo.imuPitchInit, 0);
-                tf::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
+                imuQuaternion.setRPY(0, cloudInfo.imu_pitch_init, 0);
+                tf2::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
                 transformTobeMapped[1] = pitchMid;
             }
         }
@@ -1425,12 +1429,12 @@ public:
 
         while (!gpsQueue.empty())
         {
-            if (gpsQueue.front().header.stamp.toSec() < timeLaserInfoCur - 0.2)
+            if (rclcpp::Time(gpsQueue.front().header.stamp).seconds() < timeLaserInfoCur - 0.2)
             {
                 // message too old
                 gpsQueue.pop_front();
             }
-            else if (gpsQueue.front().header.stamp.toSec() > timeLaserInfoCur + 0.2)
+            else if (rclcpp::Time(gpsQueue.front().header.stamp).seconds() > timeLaserInfoCur + 0.2)
             {
                 // message too new
                 break;
@@ -1589,17 +1593,19 @@ public:
         // save path for visualization
         updatePath(thisPose6D);
 
-        cloudInfo.initialGuessX = thisPose6D.x;
-        cloudInfo.initialGuessY = thisPose6D.y;
-        cloudInfo.initialGuessZ = thisPose6D.z;
-        cloudInfo.initialGuessRoll  = thisPose6D.roll;
-        cloudInfo.initialGuessPitch = thisPose6D.pitch;
-        cloudInfo.initialGuessYaw   = thisPose6D.yaw;
-        cloudInfo.imuAvailable = cloudKeyPoses6D->size() - 1;
+        cloudInfo.initial_guess_x = thisPose6D.x;
+        cloudInfo.initial_guess_y = thisPose6D.y;
+        cloudInfo.initial_guess_z = thisPose6D.z;
+        cloudInfo.initial_guess_roll  = thisPose6D.roll;
+        cloudInfo.initial_guess_pitch = thisPose6D.pitch;
+        cloudInfo.initial_guess_yaw   = thisPose6D.yaw;
+        cloudInfo.imu_available = cloudKeyPoses6D->size() - 1;
 
-        cloudInfo.cloud_corner = publishCloud(&pubFeatureCloud,  laserCloudCornerLastFeature,  cloudInfo.header.stamp, robot_id + "/" + lidarFrame);
-        cloudInfo.cloud_surface = publishCloud(&pubFeatureCloud,  laserCloudSurfLastFeature,  cloudInfo.header.stamp, robot_id + "/" + lidarFrame);;
-        pubLaserCloudInfo.publish(cloudInfo);
+        pcl::toROSMsg(*laserCloudCornerLastDS, cloudInfo.cloud_corner);
+        cloudInfo.cloud_corner.header.stamp = cloudInfo.header.stamp;
+        cloudInfo.cloud_corner.header.frame_id = robot_id + "/" + lidarFrame;
+        cloudInfo.cloud_surface = publishCloud<PointType>(pubFeatureCloud,  laserCloudSurfLastFeature,  cloudInfo.header.stamp, robot_id + "/" + lidarFrame);;
+        pubLaserCloudInfo->publish(cloudInfo);
 
 
 
@@ -1641,17 +1647,15 @@ public:
 
     void updatePath(const PointTypePose& pose_in)
     {
-        geometry_msgs::PoseStamped pose_stamped;
-        pose_stamped.header.stamp = ros::Time().fromSec(pose_in.time);
+        geometry_msgs::msg::PoseStamped pose_stamped;
+        pose_stamped.header.stamp = rclcpp::Time(static_cast<int64_t>(pose_in.time * 1e9));
         pose_stamped.header.frame_id = robot_id + "/" + odometryFrame;
         pose_stamped.pose.position.x = pose_in.x;
         pose_stamped.pose.position.y = pose_in.y;
         pose_stamped.pose.position.z = pose_in.z;
-        tf::Quaternion q = tf::createQuaternionFromRPY(pose_in.roll, pose_in.pitch, pose_in.yaw);
-        pose_stamped.pose.orientation.x = q.x();
-        pose_stamped.pose.orientation.y = q.y();
-        pose_stamped.pose.orientation.z = q.z();
-        pose_stamped.pose.orientation.w = q.w();
+        tf2::Quaternion q;
+        q.setRPY(pose_in.roll, pose_in.pitch, pose_in.yaw);
+        pose_stamped.pose.orientation = tf2::toMsg(q);
 
         globalPath.poses.push_back(pose_stamped);
     }
@@ -1659,30 +1663,41 @@ public:
     void publishOdometry()
     {
         // Publish odometry for ROS (global)
-        nav_msgs::Odometry laserOdometryROS;
+        nav_msgs::msg::Odometry laserOdometryROS;
         laserOdometryROS.header.stamp = timeLaserInfoStamp;
         laserOdometryROS.header.frame_id = robot_id + "/" + odometryFrame;
         laserOdometryROS.child_frame_id = robot_id + "/" + lidarFrame + "/odom_mapping";
         laserOdometryROS.pose.pose.position.x = transformTobeMapped[3];
         laserOdometryROS.pose.pose.position.y = transformTobeMapped[4];
         laserOdometryROS.pose.pose.position.z = transformTobeMapped[5];
-        laserOdometryROS.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]);
-        pubLaserOdometryGlobal.publish(laserOdometryROS);
+        
+        tf2::Quaternion q;
+        q.setRPY(transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]);
+        laserOdometryROS.pose.pose.orientation = tf2::toMsg(q);
+        
+        pubLaserOdometryGlobal->publish(laserOdometryROS);
 
         //publish to fusion node
 
 //        pubCloudInfoWithPose.publish();
 
         // Publish TF
-        static tf::TransformBroadcaster br;
-        tf::Transform t_odom_to_lidar = tf::Transform(tf::createQuaternionFromRPY(transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]),
-                                                      tf::Vector3(transformTobeMapped[3], transformTobeMapped[4], transformTobeMapped[5]));
-        tf::StampedTransform trans_odom_to_lidar = tf::StampedTransform(t_odom_to_lidar, timeLaserInfoStamp, robot_id + "/" + odometryFrame, robot_id + "/" + lidarFrame + "/lidar_link");
-        br.sendTransform(trans_odom_to_lidar);
+        static std::unique_ptr<tf2_ros::TransformBroadcaster> br;
+        if(!br) br = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
+        
+        geometry_msgs::msg::TransformStamped trans_odom_to_lidar;
+        trans_odom_to_lidar.header.stamp = timeLaserInfoStamp;
+        trans_odom_to_lidar.header.frame_id = robot_id + "/" + odometryFrame;
+        trans_odom_to_lidar.child_frame_id = robot_id + "/" + lidarFrame + "/lidar_link";
+        trans_odom_to_lidar.transform.translation.x = transformTobeMapped[3];
+        trans_odom_to_lidar.transform.translation.y = transformTobeMapped[4];
+        trans_odom_to_lidar.transform.translation.z = transformTobeMapped[5];
+        trans_odom_to_lidar.transform.rotation = tf2::toMsg(q);
+        br->sendTransform(trans_odom_to_lidar);
 
         // Publish odometry for ROS (incremental)
         static bool lastIncreOdomPubFlag = false;
-        static nav_msgs::Odometry laserOdomIncremental; // incremental odometry msg
+        static nav_msgs::msg::Odometry laserOdomIncremental; // incremental odometry msg
         static Eigen::Affine3f increOdomAffine; // incremental odometry in affine
         if (lastIncreOdomPubFlag == false)
         {
@@ -1694,25 +1709,25 @@ public:
             increOdomAffine = increOdomAffine * affineIncre;
             float x, y, z, roll, pitch, yaw;
             pcl::getTranslationAndEulerAngles (increOdomAffine, x, y, z, roll, pitch, yaw);
-            if (cloudInfo.imuAvailable == true)
+            if (cloudInfo.imu_available == true)
             {
-                if (std::abs(cloudInfo.imuPitchInit) < 1.4)
+                if (std::abs(cloudInfo.imu_pitch_init) < 1.4)
                 {
                     double imuWeight = 0.1;
-                    tf::Quaternion imuQuaternion;
-                    tf::Quaternion transformQuaternion;
+                    tf2::Quaternion imuQuaternion;
+                    tf2::Quaternion transformQuaternion;
                     double rollMid, pitchMid, yawMid;
 
                     // slerp roll
                     transformQuaternion.setRPY(roll, 0, 0);
-                    imuQuaternion.setRPY(cloudInfo.imuRollInit, 0, 0);
-                    tf::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
+                    imuQuaternion.setRPY(cloudInfo.imu_roll_init, 0, 0);
+                    tf2::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
                     roll = rollMid;
 
                     // slerp pitch
                     transformQuaternion.setRPY(0, pitch, 0);
-                    imuQuaternion.setRPY(0, cloudInfo.imuPitchInit, 0);
-                    tf::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
+                    imuQuaternion.setRPY(0, cloudInfo.imu_pitch_init, 0);
+                    tf2::Matrix3x3(transformQuaternion.slerp(imuQuaternion, imuWeight)).getRPY(rollMid, pitchMid, yawMid);
                     pitch = pitchMid;
                 }
             }
@@ -1722,13 +1737,17 @@ public:
             laserOdomIncremental.pose.pose.position.x = x;
             laserOdomIncremental.pose.pose.position.y = y;
             laserOdomIncremental.pose.pose.position.z = z;
-            laserOdomIncremental.pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(roll, pitch, yaw);
+            
+            tf2::Quaternion q_inc;
+            q_inc.setRPY(roll, pitch, yaw);
+            laserOdomIncremental.pose.pose.orientation = tf2::toMsg(q_inc);
+            
             if (isDegenerate)
                 laserOdomIncremental.pose.covariance[0] = 1;
             else
                 laserOdomIncremental.pose.covariance[0] = 0;
         }
-        pubLaserOdometryIncremental.publish(laserOdomIncremental);
+        pubLaserOdometryIncremental->publish(laserOdomIncremental);
     }
 
     void publishFrames()
@@ -1736,33 +1755,33 @@ public:
         if (cloudKeyPoses3D->points.empty())
             return;
         // publish key poses
-        publishCloud(&pubKeyPoses, cloudKeyPoses3D, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+        publishCloud<PointType>(pubKeyPoses, cloudKeyPoses3D, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         // Publish surrounding key frames
-        publishCloud(&pubRecentKeyFrames, laserCloudSurfFromMapDS, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+        publishCloud<PointType>(pubRecentKeyFrames, laserCloudSurfFromMapDS, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         // publish registered key frame
-        if (pubRecentKeyFrame.getNumSubscribers() != 0)
+        if (pubRecentKeyFrame->get_subscription_count() != 0)
         {
             pcl::PointCloud<PointType>::Ptr cloudOut(new pcl::PointCloud<PointType>());
             PointTypePose thisPose6D = trans2PointTypePose(transformTobeMapped);
             *cloudOut += *transformPointCloud(laserCloudCornerLastDS,  &thisPose6D);
             *cloudOut += *transformPointCloud(laserCloudSurfLastDS,    &thisPose6D);
-            publishCloud(&pubRecentKeyFrame, cloudOut, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+            publishCloud<PointType>(pubRecentKeyFrame, cloudOut, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         }
         // publish registered high-res raw cloud
-        if (pubCloudRegisteredRaw.getNumSubscribers() != 0)
+        if (pubCloudRegisteredRaw->get_subscription_count() != 0)
         {
             pcl::PointCloud<PointType>::Ptr cloudOut(new pcl::PointCloud<PointType>());
             pcl::fromROSMsg(cloudInfo.cloud_deskewed, *cloudOut);
             PointTypePose thisPose6D = trans2PointTypePose(transformTobeMapped);
             *cloudOut = *transformPointCloud(cloudOut,  &thisPose6D);
-            publishCloud(&pubCloudRegisteredRaw, cloudOut, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
+            publishCloud<PointType>(pubCloudRegisteredRaw, cloudOut, timeLaserInfoStamp, robot_id + "/" + odometryFrame);
         }
         // publish path
-        if (pubPath.getNumSubscribers() != 0)
+        if (pubPath->get_subscription_count() != 0)
         {
             globalPath.header.stamp = timeLaserInfoStamp;
             globalPath.header.frame_id = robot_id + "/" + odometryFrame;
-            pubPath.publish(globalPath);
+            pubPath->publish(globalPath);
         }
     }
 };
@@ -1770,19 +1789,23 @@ public:
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "disco_slam");
+    rclcpp::init(argc, argv);
 
-    mapOptimization MO;
+    rclcpp::NodeOptions options;
+    options.use_intra_process_comms(true);
+    auto MO = std::make_shared<mapOptimization>(options);
 
-    ROS_INFO("\033[1;32m----> Map Optimization Started.\033[0m");
+    RCLCPP_INFO(MO->get_logger(), "\033[1;32m----> Map Optimization Started.\033[0m");
     
-    std::thread loopthread(&mapOptimization::loopClosureThread, &MO);
-    std::thread visualizeMapThread(&mapOptimization::visualizeGlobalMapThread, &MO);
+    std::thread loopthread(&mapOptimization::loopClosureThread, MO.get());
+    std::thread visualizeMapThread(&mapOptimization::visualizeGlobalMapThread, MO.get());
 
-    ros::spin();
+    rclcpp::spin(MO);
 
     loopthread.join();
     visualizeMapThread.join();
+    
+    rclcpp::shutdown();
 
     return 0;
 }

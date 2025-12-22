@@ -100,4 +100,6 @@ float ScanContext::xy2Theta(float x, float y){
 
   if ( x >= 0 && y < 0)
     return 360 - ((180/M_PI) * atan((-y)/x));
+
+  return 0;
 }

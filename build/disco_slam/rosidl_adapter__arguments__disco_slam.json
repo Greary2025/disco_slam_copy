@@ -1,0 +1,7 @@
+{
+  "package_name": "disco_slam",
+  "non_idl_tuples": [
+    "/home/john22/disco_origin/src/disco_slam_copy:msg/CloudInfo.msg",
+    "/home/john22/disco_origin/src/disco_slam_copy:msg/ContextInfo.msg"
+  ]
+}

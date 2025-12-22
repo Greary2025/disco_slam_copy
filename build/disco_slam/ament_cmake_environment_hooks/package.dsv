@@ -1,0 +1,4 @@
+source;share/disco_slam/local_setup.bash
+source;share/disco_slam/local_setup.dsv
+source;share/disco_slam/local_setup.sh
+source;share/disco_slam/local_setup.zsh

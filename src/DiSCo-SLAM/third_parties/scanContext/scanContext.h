@@ -20,8 +20,8 @@
 
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <pcl_ros/point_cloud.h>
-#include <pcl_conversions/pcl_conversions.h>
+//#include <pcl_ros/point_cloud.h>
+//#include <pcl_conversions/pcl_conversions.h>
 #include <pcl/range_image/range_image.h>
 #include <pcl/common/common.h>
 #include <pcl/registration/icp.h>
@@ -41,7 +41,7 @@ typedef pcl::PointXYZI  PointType;
 struct PointXYZIRPYT
 {
     PCL_ADD_POINT4D
-    PCL_ADD_INTENSITY;
+    PCL_ADD_INTENSITY
     float roll;
     float pitch;
     float yaw;
@@ -88,7 +88,7 @@ private:
 };
 
 //circShift from https://github.com/irapkaist/SC-LeGO-LOAM
-Eigen::MatrixXf circShift( Eigen::MatrixXf &_mat, int _num_shift )
+inline Eigen::MatrixXf circShift( Eigen::MatrixXf &_mat, int _num_shift )
 {
     // shift columns to right direction 
     assert(_num_shift >= 0);
