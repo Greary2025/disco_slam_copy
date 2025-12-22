@@ -1,2 +1,0 @@
-Invoking command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam': PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --build /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam -- -j20 -l20
-Invoked command in '/home/john22/disco_origin/src/disco_slam_copy/build/disco_slam' returned '2': PS1=\n(TraeAI-27) \w [$?] $ __trae_PS1=\n(TraeAI-27) \w [$?] $ /usr/bin/cmake --build /home/john22/disco_origin/src/disco_slam_copy/build/disco_slam -- -j20 -l20

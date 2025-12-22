@@ -1,9 +1,0 @@
-setup.py
-disco_slam/__init__.py
-disco_slam.egg-info/PKG-INFO
-disco_slam.egg-info/SOURCES.txt
-disco_slam.egg-info/dependency_links.txt
-disco_slam.egg-info/top_level.txt
-disco_slam/msg/__init__.py
-disco_slam/msg/_cloud_info.py
-disco_slam/msg/_context_info.py
