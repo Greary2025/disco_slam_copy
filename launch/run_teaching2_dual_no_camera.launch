@@ -1,0 +1,43 @@
+<launch>
+    <param name="/use_sim_time" value="false" />
+
+    <arg name="discoslam_bag" default="/mnt/c/Users/Greary/Documents/rosbag/real2_bag/teaching2_dual.bag"/>
+    <arg name="rate" default="3"/>
+    <arg name="rviz" default="true"/>
+
+    <arg name="no"      default="1"/>
+    <arg name="project" default="disco_slam"/>
+    <arg name="robot0"  default="xianfeng"/>
+    <arg name="robot1"  default="gensui"/>
+    <arg name="robot2"  default="jackal2"/>
+
+    <!-- Parameters (teaching2_dual dedicated copies) -->
+    <rosparam file="$(find disco_slam)/config/params_teaching2_dual.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_teaching2_dual.yaml" command="load" />
+
+    <!--- LOAM robot 0 -->
+    <include file="$(find disco_slam)/launch/include/module_loam.launch" >
+        <arg name="robot" value="$(arg robot0)"/>
+        <arg name="id1" value="$(arg robot1)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+    </include>
+
+    <!--- LOAM robot 1 -->
+    <include file="$(find disco_slam)/launch/include/module_loam.launch" >
+        <arg name="robot" value="$(arg robot1)"/>
+        <arg name="id1" value="$(arg robot0)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+    </include>
+
+    <!--- Run Rviz (optional) -->
+    <group if="$(arg rviz)">
+        <node pkg="rviz" type="rviz" name="disco_slam_rviz"
+              args="-d $(find disco_slam)/launch/include/config/rviz_teaching2_dual.rviz" />
+    </group>
+
+    <!--- Play bag -->
+    <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-l -r $(arg rate) -q $(arg discoslam_bag)" />
+
+</launch>

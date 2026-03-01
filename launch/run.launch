@@ -2,7 +2,7 @@
     <!-- 启用 use_sim_time 参数 -->
     <param name="/use_sim_time" value="false" />
 
-    <arg name="discoslam_bag" value="/mnt/d/rosbag/big_exam/synchronous_1014.bag"/>
+    <arg name="discoslam_bag" value="/mnt/c/Users/Greary/Documents/rosbag/double/synchronous_1014.bag"/>
 
     <arg name="no"      default="1"/>
     <arg name="project" default="disco_slam"/>
@@ -57,7 +57,7 @@
     <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-r 1 -q $(arg discoslam_bag)">  </node>
     
     <!-- 启动PCD保存节点 -->
-    <include file="$(find disco_slam)/launch/run_path_to_tum.launch" />
+    <!-- <include file="$(find disco_slam)/launch/run_path_to_tum.launch" /> -->
 
 
 </launch>

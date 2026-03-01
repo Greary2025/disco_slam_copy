@@ -108,6 +108,11 @@ public:
     float imuGyrBiasN;
     float imuGravity;
     float imuRPYWeight;
+    float imuFailureVelThreshold;
+    float imuFailureAccBiasThreshold;
+    float imuFailureGyrBiasThreshold;
+    float imuDtMax;
+    bool imuFailureDetection;
     vector<double> extRotV;
     vector<double> extRPYV;
     vector<double> extTransV;
@@ -217,6 +222,11 @@ public:
         nh.param<float>("disco_slam/imuGyrBiasN", imuGyrBiasN, 0.00003);
         nh.param<float>("disco_slam/imuGravity", imuGravity, 9.80511);
         nh.param<float>("disco_slam/imuRPYWeight", imuRPYWeight, 0.01);
+        nh.param<float>("disco_slam/imuFailureVelThreshold", imuFailureVelThreshold, 100.0);
+        nh.param<float>("disco_slam/imuFailureAccBiasThreshold", imuFailureAccBiasThreshold, 2.0);
+        nh.param<float>("disco_slam/imuFailureGyrBiasThreshold", imuFailureGyrBiasThreshold, 2.0);
+        nh.param<float>("disco_slam/imuDtMax", imuDtMax, 0.02);
+        nh.param<bool>("disco_slam/imuFailureDetection", imuFailureDetection, true);
         nh.param<vector<double>>("disco_slam/extrinsicRot", extRotV, vector<double>());
         nh.param<vector<double>>("disco_slam/extrinsicRPY", extRPYV, vector<double>());
         nh.param<vector<double>>("disco_slam/extrinsicTrans", extTransV, vector<double>());

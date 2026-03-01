@@ -382,6 +382,9 @@ public:
             if (imuTime < currentCorrectionTime - delta_t)
             {
                 double dt = (lastImuT_opt < 0) ? (1.0 / 500.0) : (imuTime - lastImuT_opt);
+                // Clamp dt to avoid unstable preintegration on large gaps
+                if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
+                    dt = imuDtMax;
                 imuIntegratorOpt_->integrateMeasurement(
                         gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
                         gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
@@ -450,6 +453,9 @@ public:
                 sensor_msgs::Imu *thisImu = &imuQueImu[i];
                 double imuTime = ROS_TIME(thisImu);
                 double dt = (lastImuQT < 0) ? (1.0 / 500.0) :(imuTime - lastImuQT);
+                // Clamp dt to avoid unstable preintegration on large gaps
+                if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
+                    dt = imuDtMax;
 
                 imuIntegratorImu_->integrateMeasurement(gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
                                                         gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
@@ -464,7 +470,12 @@ public:
     bool failureDetection(const gtsam::Vector3& velCur, const gtsam::imuBias::ConstantBias& biasCur)
     {
         Eigen::Vector3f vel(velCur.x(), velCur.y(), velCur.z());
-        if (vel.norm() > 30)
+        if (!imuFailureDetection)
+        {
+            return false;
+        }
+
+        if (imuFailureVelThreshold > 0.0 && vel.norm() > imuFailureVelThreshold)
         {
             ROS_WARN("Large velocity, reset IMU-preintegration!");
             return true;
@@ -472,7 +483,8 @@ public:
 
         Eigen::Vector3f ba(biasCur.accelerometer().x(), biasCur.accelerometer().y(), biasCur.accelerometer().z());
         Eigen::Vector3f bg(biasCur.gyroscope().x(), biasCur.gyroscope().y(), biasCur.gyroscope().z());
-        if (ba.norm() > 1.0 || bg.norm() > 1.0)
+        if ((imuFailureAccBiasThreshold > 0.0 && ba.norm() > imuFailureAccBiasThreshold) ||
+            (imuFailureGyrBiasThreshold > 0.0 && bg.norm() > imuFailureGyrBiasThreshold))
         {
             ROS_WARN("Large bias, reset IMU-preintegration!");
             return true;
@@ -495,6 +507,9 @@ public:
 
         double imuTime = ROS_TIME(&thisImu);
         double dt = (lastImuT_imu < 0) ? (1.0 / 500.0) : (imuTime - lastImuT_imu);
+        // Clamp dt to avoid unstable preintegration on large gaps
+        if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
+            dt = imuDtMax;
         lastImuT_imu = imuTime;
 
         // integrate this single imu message
