@@ -1,0 +1,18 @@
+disco_slam:
+  # Teaching4 debugging override:
+  # keep IMU gravity explicit per robot, and force IMU<->LiDAR extrinsic to identity.
+  imuGravity: 9.80511
+  imuGravityMap:
+    xianfeng: 9.80511
+    gensui: 9.80511
+
+  # Identity IMU-LiDAR extrinsic for teaching4 investigation.
+  # These values are interpreted directly as IMU->LiDAR.
+  extrinsicProvidedAsLidarToImu: false
+  extrinsicTrans: [0.0, 0.0, 0.0]
+  extrinsicRot: [1.0, 0.0, 0.0,
+                 0.0, 1.0, 0.0,
+                 0.0, 0.0, 1.0]
+  extrinsicRPY: [1.0, 0.0, 0.0,
+                 0.0, 1.0, 0.0,
+                 0.0, 0.0, 1.0]

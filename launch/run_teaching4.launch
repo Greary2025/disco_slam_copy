@@ -1,0 +1,54 @@
+<launch>
+    <param name="/use_sim_time" value="false" />
+
+    <arg name="xianfeng_bag" default="/mnt/d/rosbag/real4_bag/3/xianfeng_teaching4_fixed_0_100.bag"/>
+    <arg name="gensui_bag" default="/mnt/d/rosbag/real4_bag/3/gensui_teaching4_fixed_60_160.bag"/>
+    <arg name="rate" default="1"/>
+    <arg name="rviz" default="true"/>
+    <arg name="enable_map_fusion" default="true"/>
+    <arg name="map_fusion_delay" default="0"/>
+
+    <arg name="no"      default="2"/>
+    <arg name="project" default="disco_slam"/>
+    <arg name="robot0"  default="xianfeng"/>
+    <arg name="robot1"  default="gensui"/>
+    <arg name="robot2"  default="updown"/>
+
+    <!-- Parameters -->
+    <rosparam file="$(find disco_slam)/config/params_teaching2_dual.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/config/params_teaching4_dual.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_teaching2_dual.yaml" command="load" />
+
+    <!--- LOAM robot 0 -->
+    <include file="$(find disco_slam)/launch/include/module_loam.launch" >
+        <arg name="robot" value="$(arg robot0)"/>
+        <arg name="id1" value="$(arg robot1)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+        <arg name="enable_map_fusion" value="$(arg enable_map_fusion)"/>
+        <arg name="map_fusion_delay" value="$(arg map_fusion_delay)"/>
+    </include>
+
+    <!--- LOAM robot 1 -->
+    <include file="$(find disco_slam)/launch/include/module_loam.launch" >
+        <arg name="robot" value="$(arg robot1)"/>
+        <arg name="id1" value="$(arg robot0)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+        <arg name="enable_map_fusion" value="$(arg enable_map_fusion)"/>
+        <arg name="map_fusion_delay" value="$(arg map_fusion_delay)"/>
+    </include>
+
+    <!--- Run Rviz (optional) -->
+    <group if="$(arg rviz)">
+        <node pkg="rviz" type="rviz" name="disco_slam_rviz"
+              args="-d $(find disco_slam)/launch/include/config/rviz_teaching2_dual.rviz" />
+    </group>
+
+    <!--- Play xianfeng bag -->
+    <node name="rosbag_player_xianfeng" pkg="rosbag" type="play" output="screen" args="-r $(arg rate) -q $(arg xianfeng_bag)" />
+
+    <!--- Play gensui bag -->
+    <node name="rosbag_player_gensui" pkg="rosbag" type="play" output="screen" args="-r $(arg rate) -q $(arg gensui_bag)" />
+
+</launch>

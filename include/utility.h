@@ -38,6 +38,7 @@
 #include <tf/transform_listener.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
+#include <xmlrpcpp/XmlRpcValue.h>
  
 #include <vector>
 #include <cmath>
@@ -111,8 +112,19 @@ public:
     float imuFailureVelThreshold;
     float imuFailureAccBiasThreshold;
     float imuFailureGyrBiasThreshold;
+    float imuDtMin;
     float imuDtMax;
+    float imuNominalRate;
+    float imuPublishMaxSpeed;
     bool imuFailureDetection;
+    int imuFailureVelConsecutive;
+    bool imuUseMeasurementGate;
+    float imuAccNormMin;
+    float imuAccNormMax;
+    float imuGyrNormMax;
+    float imuTimeOffset;
+    float lidarTimeOffset;
+    bool extrinsicProvidedAsLidarToImu;
     vector<double> extRotV;
     vector<double> extRPYV;
     vector<double> extTransV;
@@ -225,14 +237,121 @@ public:
         nh.param<float>("disco_slam/imuFailureVelThreshold", imuFailureVelThreshold, 100.0);
         nh.param<float>("disco_slam/imuFailureAccBiasThreshold", imuFailureAccBiasThreshold, 2.0);
         nh.param<float>("disco_slam/imuFailureGyrBiasThreshold", imuFailureGyrBiasThreshold, 2.0);
+        nh.param<float>("disco_slam/imuDtMin", imuDtMin, 1e-4);
         nh.param<float>("disco_slam/imuDtMax", imuDtMax, 0.02);
+        nh.param<float>("disco_slam/imuNominalRate", imuNominalRate, 300.0);
+        nh.param<float>("disco_slam/imuPublishMaxSpeed", imuPublishMaxSpeed, 30.0);
         nh.param<bool>("disco_slam/imuFailureDetection", imuFailureDetection, true);
+        nh.param<int>("disco_slam/imuFailureVelConsecutive", imuFailureVelConsecutive, 20);
+        nh.param<bool>("disco_slam/imuUseMeasurementGate", imuUseMeasurementGate, true);
+        nh.param<float>("disco_slam/imuAccNormMin", imuAccNormMin, 5.0);
+        nh.param<float>("disco_slam/imuAccNormMax", imuAccNormMax, 20.0);
+        nh.param<float>("disco_slam/imuGyrNormMax", imuGyrNormMax, 5.0);
+        nh.param<float>("disco_slam/imuTimeOffset", imuTimeOffset, 0.0);
+        nh.param<float>("disco_slam/lidarTimeOffset", lidarTimeOffset, 0.0);
+        nh.param<bool>("disco_slam/extrinsicProvidedAsLidarToImu", extrinsicProvidedAsLidarToImu, false);
+
+        // Dataset-specific multi-robot time alignment:
+        // priority = robot dedicated key > robot map > global default
+        const auto readXmlRpcNumber = [](const XmlRpc::XmlRpcValue& value, float& outValue) -> bool {
+            if (value.getType() == XmlRpc::XmlRpcValue::TypeDouble)
+            {
+                outValue = static_cast<float>(static_cast<double>(value));
+                return true;
+            }
+            if (value.getType() == XmlRpc::XmlRpcValue::TypeInt)
+            {
+                outValue = static_cast<float>(static_cast<int>(value));
+                return true;
+            }
+            return false;
+        };
+
+        float robotImuTimeOffset = imuTimeOffset;
+        float robotLidarTimeOffset = lidarTimeOffset;
+        const std::string imuOffsetKey = "disco_slam/imuTimeOffset_" + robot_id;
+        const std::string lidarOffsetKey = "disco_slam/lidarTimeOffset_" + robot_id;
+        nh.param<float>(imuOffsetKey, robotImuTimeOffset, robotImuTimeOffset);
+        nh.param<float>(lidarOffsetKey, robotLidarTimeOffset, robotLidarTimeOffset);
+
+        XmlRpc::XmlRpcValue imuOffsetMap;
+        if (nh.getParam("disco_slam/imuTimeOffsetMap", imuOffsetMap)
+            && imuOffsetMap.getType() == XmlRpc::XmlRpcValue::TypeStruct
+            && imuOffsetMap.hasMember(robot_id))
+        {
+            float mapValue = robotImuTimeOffset;
+            if (readXmlRpcNumber(imuOffsetMap[robot_id], mapValue))
+                robotImuTimeOffset = mapValue;
+        }
+
+        XmlRpc::XmlRpcValue lidarOffsetMap;
+        if (nh.getParam("disco_slam/lidarTimeOffsetMap", lidarOffsetMap)
+            && lidarOffsetMap.getType() == XmlRpc::XmlRpcValue::TypeStruct
+            && lidarOffsetMap.hasMember(robot_id))
+        {
+            float mapValue = robotLidarTimeOffset;
+            if (readXmlRpcNumber(lidarOffsetMap[robot_id], mapValue))
+                robotLidarTimeOffset = mapValue;
+        }
+
+        imuTimeOffset = robotImuTimeOffset;
+        lidarTimeOffset = robotLidarTimeOffset;
+
+        // Robot-specific gravity magnitude override (m/s^2)
+        float robotImuGravity = imuGravity;
+        const std::string imuGravityKey = "disco_slam/imuGravity_" + robot_id;
+        nh.param<float>(imuGravityKey, robotImuGravity, robotImuGravity);
+        XmlRpc::XmlRpcValue imuGravityMap;
+        if (nh.getParam("disco_slam/imuGravityMap", imuGravityMap)
+            && imuGravityMap.getType() == XmlRpc::XmlRpcValue::TypeStruct
+            && imuGravityMap.hasMember(robot_id))
+        {
+            float mapValue = robotImuGravity;
+            if (readXmlRpcNumber(imuGravityMap[robot_id], mapValue))
+                robotImuGravity = mapValue;
+        }
+        imuGravity = robotImuGravity;
+
+        if (imuGravity <= 0.0f)
+        {
+            ROS_WARN_STREAM(robot_id << " imuGravity <= 0 detected in params, fallback to 9.80511 m/s^2");
+            imuGravity = 9.80511f;
+        }
+
+        ROS_INFO_STREAM(robot_id << " time offsets -> imu: " << imuTimeOffset << " s, lidar: " << lidarTimeOffset << " s");
+        ROS_INFO_STREAM(robot_id << " imu gravity -> " << imuGravity << " m/s^2");
+
         nh.param<vector<double>>("disco_slam/extrinsicRot", extRotV, vector<double>());
         nh.param<vector<double>>("disco_slam/extrinsicRPY", extRPYV, vector<double>());
         nh.param<vector<double>>("disco_slam/extrinsicTrans", extTransV, vector<double>());
+
+        if (extRotV.size() != 9 || extRPYV.size() != 9 || extTransV.size() != 3)
+        {
+            ROS_ERROR_STREAM("Invalid extrinsic params size. Expect extrinsicRot/extrinsicRPY=9 and extrinsicTrans=3, got "
+                             << extRotV.size() << "/" << extRPYV.size() << "/" << extTransV.size());
+            ros::shutdown();
+        }
+
         extRot = Eigen::Map<const Eigen::Matrix<double, -1, -1, Eigen::RowMajor>>(extRotV.data(), 3, 3);
         extRPY = Eigen::Map<const Eigen::Matrix<double, -1, -1, Eigen::RowMajor>>(extRPYV.data(), 3, 3);
         extTrans = Eigen::Map<const Eigen::Matrix<double, -1, -1, Eigen::RowMajor>>(extTransV.data(), 3, 1);
+
+        // Internal convention:
+        // extRot/extRPY should map IMU -> LiDAR.
+        // If user provides LiDAR -> IMU (from calibration tool), convert here.
+        if (extrinsicProvidedAsLidarToImu)
+        {
+            const Eigen::Matrix3d rotLidarToImu = extRot;
+            const Eigen::Matrix3d rpyLidarToImu = extRPY;
+            const Eigen::Vector3d transLidarToImu = extTrans;
+
+            extRot = rotLidarToImu.transpose();
+            extRPY = rpyLidarToImu.transpose();
+            extTrans = -extRot * transLidarToImu;
+
+            ROS_INFO_STREAM(robot_id << " converted extrinsic from LiDAR->IMU to IMU->LiDAR internally");
+        }
+
         extQRPY = Eigen::Quaterniond(extRPY);
 
         nh.param<float>("disco_slam/edgeThreshold", edgeThreshold, 0.1);
@@ -278,6 +397,11 @@ public:
     sensor_msgs::Imu imuConverter(const sensor_msgs::Imu& imu_in)
     {
         sensor_msgs::Imu imu_out = imu_in;
+        if (imu_out.header.stamp.isZero())
+            imu_out.header.stamp = ros::Time::now();
+        if (imuTimeOffset != 0.0f)
+            imu_out.header.stamp += ros::Duration(imuTimeOffset);
+
         // rotate acceleration
         Eigen::Vector3d acc(imu_in.linear_acceleration.x, imu_in.linear_acceleration.y, imu_in.linear_acceleration.z);
         acc = extRot * acc;

@@ -235,10 +235,34 @@ public:
             ros::shutdown();
         }
 
+        // Some bag frames may carry metadata but no actual points.
+        // Accessing back() on an empty cloud would crash the node.
+        if (laserCloudIn->empty())
+        {
+            ROS_WARN_THROTTLE(1.0, "Received empty point cloud frame, skip.");
+            return false;
+        }
+
         // get timestamp
         cloudHeader = currentCloudMsg.header;
+        if (cloudHeader.stamp.isZero())
+            cloudHeader.stamp = ros::Time::now();
+        if (lidarTimeOffset != 0.0f)
+            cloudHeader.stamp += ros::Duration(lidarTimeOffset);
         timeScanCur = cloudHeader.stamp.toSec();
-        timeScanEnd = timeScanCur + laserCloudIn->points.back().time;
+        timeScanEnd = timeScanCur;
+
+        bool hasPointTimeField = false;
+        for (auto &field : currentCloudMsg.fields)
+        {
+            if (field.name == "time" || field.name == "t")
+            {
+                hasPointTimeField = true;
+                break;
+            }
+        }
+        if (hasPointTimeField)
+            timeScanEnd = timeScanCur + laserCloudIn->points.back().time;
 
         // check dense flag
         if (laserCloudIn->is_dense == false)
@@ -265,15 +289,7 @@ public:
         // check point time
         if (deskewFlag == 0)
         {
-            deskewFlag = -1;
-            for (auto &field : currentCloudMsg.fields)
-            {
-                if (field.name == "time" || field.name == "t")
-                {
-                    deskewFlag = 1;
-                    break;
-                }
-            }
+            deskewFlag = hasPointTimeField ? 1 : -1;
             if (deskewFlag == -1)
                 ROS_WARN("Point cloud timestamp not available, deskew function disabled, system will drift significantly!");
         }
@@ -558,7 +574,8 @@ public:
             if (rangeMat.at<float>(rowIdn, columnIdn) != FLT_MAX)
                 continue;
 
-            thisPoint = deskewPoint(&thisPoint, laserCloudIn->points[i].time);
+            float relTime = (deskewFlag == 1) ? laserCloudIn->points[i].time : 0.0f;
+            thisPoint = deskewPoint(&thisPoint, relTime);
 
             rangeMat.at<float>(rowIdn, columnIdn) = range;
 

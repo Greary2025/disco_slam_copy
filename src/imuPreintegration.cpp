@@ -45,6 +45,10 @@ public:
 
     double lidarOdomTime = -1;
     deque<nav_msgs::Odometry> imuOdomQueue;
+    ros::Time lastMapToOdomStamp;
+    bool hasPublishedMapToOdom = false;
+    ros::Time lastOdomToBaselinkStamp;
+    bool hasPublishedOdomToBaselink = false;
 
     TransformFusion()
     {
@@ -55,13 +59,48 @@ public:
                 tfListener.waitForTransform(robot_id + "/" + lidarFrame, robot_id + "/" + baselinkFrame, ros::Time(0), ros::Duration(3.0));
                 tfListener.lookupTransform(robot_id + "/" + lidarFrame, robot_id + "/" + baselinkFrame, ros::Time(0), lidar2Baselink);
             }
-            catch (tf::TransformException ex)
+            catch (const tf::TransformException& ex)
             {
                 ROS_ERROR("%s",ex.what());
             }
         }
 
         fusionTrans[0] = 0; fusionTrans[1] = 0; fusionTrans[2] = 0; fusionTrans[3] = 0; fusionTrans[4] = 0; fusionTrans[5] = 0;
+
+        const auto readXmlRpcNumber = [](const XmlRpc::XmlRpcValue& value, double& outValue) -> bool {
+            if (value.getType() == XmlRpc::XmlRpcValue::TypeDouble)
+            {
+                outValue = static_cast<double>(value);
+                return true;
+            }
+            if (value.getType() == XmlRpc::XmlRpcValue::TypeInt)
+            {
+                outValue = static_cast<int>(value);
+                return true;
+            }
+            return false;
+        };
+
+        double initialMapYaw = 0.0;
+        nh.param<double>("disco_slam/initialMapYaw", initialMapYaw, initialMapYaw);
+
+        double robotInitialMapYaw = initialMapYaw;
+        const std::string initialMapYawKey = "disco_slam/initialMapYaw_" + robot_id;
+        nh.param<double>(initialMapYawKey, robotInitialMapYaw, robotInitialMapYaw);
+
+        XmlRpc::XmlRpcValue initialMapYawMap;
+        if (nh.getParam("disco_slam/initialMapYawMap", initialMapYawMap)
+            && initialMapYawMap.getType() == XmlRpc::XmlRpcValue::TypeStruct
+            && initialMapYawMap.hasMember(robot_id))
+        {
+            double mapValue = robotInitialMapYaw;
+            if (readXmlRpcNumber(initialMapYawMap[robot_id], mapValue))
+                robotInitialMapYaw = mapValue;
+        }
+
+        fusionTrans[5] = robotInitialMapYaw;
+        ROS_INFO_STREAM(robot_id << " initial map->odom yaw -> " << fusionTrans[5] << " rad");
+
         nh.getParam("/mapfusion/interRobot/sc_topic", _fusion_topic);
         subFusionTrans   = nh.subscribe<nav_msgs::Odometry>(robot_id + "/" + _fusion_topic + "/trans_map", 2000,&TransformFusion::FusionTransHandler, this, ros::TransportHints().tcpNoDelay());
 
@@ -84,6 +123,56 @@ public:
         return pcl::getTransformation(x, y, z, roll, pitch, yaw);
     }
 
+    void publishMapToOdomTf(const ros::Time& stamp)
+    {
+        // Handle rosbag loop playback: when time jumps backward, reset TF stamp guard.
+        if (hasPublishedMapToOdom && stamp + ros::Duration(0.5) < lastMapToOdomStamp)
+        {
+            ROS_WARN_STREAM_THROTTLE(2.0, robot_id << " detected time rewind for map->odom TF, reset stamp guard");
+            hasPublishedMapToOdom = false;
+        }
+
+        // Some upstream callbacks can arrive with identical timestamps. Skip
+        // duplicated map->odom publishes to avoid TF_REPEATED_DATA warnings.
+        if (hasPublishedMapToOdom && stamp <= lastMapToOdomStamp)
+            return;
+
+        static tf::TransformBroadcaster tfMap2Odom;
+        tf::Transform map_to_odom = tf::Transform(
+            tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]),
+            tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
+        tfMap2Odom.sendTransform(
+            tf::StampedTransform(map_to_odom, stamp, mapFrame, robot_id + "/" + odometryFrame));
+
+        lastMapToOdomStamp = stamp;
+        hasPublishedMapToOdom = true;
+    }
+
+    void publishOdomToBaselinkTf(const tf::Transform& tCur, const ros::Time& stamp)
+    {
+        // Handle rosbag loop playback: when time jumps backward, reset TF stamp guard.
+        if (hasPublishedOdomToBaselink && stamp + ros::Duration(0.5) < lastOdomToBaselinkStamp)
+        {
+            ROS_WARN_STREAM_THROTTLE(2.0, robot_id << " detected time rewind for odom->base_link TF, reset stamp guard");
+            hasPublishedOdomToBaselink = false;
+        }
+
+        // Skip duplicated/non-increasing timestamps to avoid TF_REPEATED_DATA.
+        if (hasPublishedOdomToBaselink && stamp <= lastOdomToBaselinkStamp)
+            return;
+
+        static tf::TransformBroadcaster tfOdom2BaseLink;
+        tf::StampedTransform odom_2_baselink(
+            tCur,
+            stamp,
+            robot_id + "/" + odometryFrame,
+            robot_id + "/" + baselinkFrame);
+        tfOdom2BaseLink.sendTransform(odom_2_baselink);
+
+        lastOdomToBaselinkStamp = stamp;
+        hasPublishedOdomToBaselink = true;
+    }
+
     void FusionTransHandler(const nav_msgs::Odometry::ConstPtr& odomMsg) {
         //receive the odometry
 //        std::cout << robot_id << ": receiving messages..." <<std::endl;
@@ -97,10 +186,7 @@ public:
 //        std::cout << fusionTrans[0] << " " << fusionTrans[1] << " " << fusionTrans[2] << " " << fusionTrans[3] << " "
 //                  << fusionTrans[4] << " " << fusionTrans[5] << std::endl;
 
-        //tf
-        tf::TransformBroadcaster tfMap2Odom;
-        tf::Transform map_to_odom = tf::Transform(tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]), tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
-        tfMap2Odom.sendTransform(tf::StampedTransform(map_to_odom, odomMsg->header.stamp, mapFrame, robot_id + "/" + odometryFrame));
+        publishMapToOdomTf(odomMsg->header.stamp);
 
     }
     void lidarOdometryHandler(const nav_msgs::Odometry::ConstPtr& odomMsg)
@@ -114,10 +200,7 @@ public:
 
     void imuOdometryHandler(const nav_msgs::Odometry::ConstPtr& odomMsg)
     {
-        //should not be static tf, if static, they will not change!
-        tf::TransformBroadcaster tfMap2Odom;
-        tf::Transform map_to_odom = tf::Transform(tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]), tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
-        tfMap2Odom.sendTransform(tf::StampedTransform(map_to_odom, odomMsg->header.stamp, mapFrame, robot_id + "/" + odometryFrame));
+        publishMapToOdomTf(odomMsg->header.stamp);
 
         std::lock_guard<std::mutex> lock(mtx);
 
@@ -149,13 +232,11 @@ public:
         pubImuOdometry.publish(laserOdometry);
 
         // publish tf
-        static tf::TransformBroadcaster tfOdom2BaseLink;
         tf::Transform tCur;
         tf::poseMsgToTF(laserOdometry.pose.pose, tCur);
         if(lidarFrame != baselinkFrame)
             tCur = tCur * lidar2Baselink;
-        tf::StampedTransform odom_2_baselink = tf::StampedTransform(tCur, odomMsg->header.stamp, robot_id + "/" + odometryFrame, robot_id + "/" + baselinkFrame);
-        tfOdom2BaseLink.sendTransform(odom_2_baselink);
+        publishOdomToBaselinkTf(tCur, odomMsg->header.stamp);
 
         // publish IMU path
         static nav_msgs::Path imuPath;
@@ -218,6 +299,7 @@ public:
     bool doneFirstOpt = false;
     double lastImuT_imu = -1;
     double lastImuT_opt = -1;
+    int velFailureCounter = 0;
 
     gtsam::ISAM2 optimizer;
     gtsam::NonlinearFactorGraph graphFactors;
@@ -238,6 +320,10 @@ public:
         pubImuOdometry = nh.advertise<nav_msgs::Odometry> (robot_id + "/" + odomTopic+"_incremental", 2000);
 
         boost::shared_ptr<gtsam::PreintegrationParams> p = gtsam::PreintegrationParams::MakeSharedU(imuGravity);
+        ROS_INFO_STREAM(robot_id << " preintegration gravity vector n_gravity = ["
+                << p->n_gravity(0) << ", "
+                << p->n_gravity(1) << ", "
+                << p->n_gravity(2) << "]");
         p->accelerometerCovariance  = gtsam::Matrix33::Identity(3,3) * pow(imuAccNoise, 2); // acc white noise in continuous
         p->gyroscopeCovariance      = gtsam::Matrix33::Identity(3,3) * pow(imuGyrNoise, 2); // gyro white noise in continuous
         p->integrationCovariance    = gtsam::Matrix33::Identity(3,3) * pow(1e-4, 2); // error committed in integrating position from velocities
@@ -252,6 +338,40 @@ public:
         
         imuIntegratorImu_ = new gtsam::PreintegratedImuMeasurements(p, prior_imu_bias); // setting up the IMU integration for IMU message thread
         imuIntegratorOpt_ = new gtsam::PreintegratedImuMeasurements(p, prior_imu_bias); // setting up the IMU integration for optimization        
+    }
+
+    bool imuMeasurementValid(const sensor_msgs::Imu& imuMsg) const
+    {
+        if (!imuUseMeasurementGate)
+            return true;
+
+        const float ax = imuMsg.linear_acceleration.x;
+        const float ay = imuMsg.linear_acceleration.y;
+        const float az = imuMsg.linear_acceleration.z;
+        const float gx = imuMsg.angular_velocity.x;
+        const float gy = imuMsg.angular_velocity.y;
+        const float gz = imuMsg.angular_velocity.z;
+
+        const float accNorm = std::sqrt(ax * ax + ay * ay + az * az);
+        const float gyrNorm = std::sqrt(gx * gx + gy * gy + gz * gz);
+
+        if ((imuAccNormMin > 0.0f && accNorm < imuAccNormMin) ||
+            (imuAccNormMax > 0.0f && accNorm > imuAccNormMax) ||
+            (imuGyrNormMax > 0.0f && gyrNorm > imuGyrNormMax))
+        {
+            ROS_WARN_THROTTLE(1.0,
+                "IMU sample rejected by gate: |a|=%.3f (range %.3f~%.3f), |w|=%.3f (max %.3f)",
+                accNorm, imuAccNormMin, imuAccNormMax, gyrNorm, imuGyrNormMax);
+            return false;
+        }
+        return true;
+    }
+
+    bool integrationDtValid(const double dt) const
+    {
+        if (imuDtMin > 0.0 && dt <= imuDtMin)
+            return false;
+        return true;
     }
 
     void resetOptimization()
@@ -271,8 +391,10 @@ public:
     void resetParams()
     {
         lastImuT_imu = -1;
+        lastImuT_opt = -1;
         doneFirstOpt = false;
         systemInitialized = false;
+        velFailureCounter = 0;
     }
 
     void odometryHandler(const nav_msgs::Odometry::ConstPtr& odomMsg)
@@ -333,6 +455,9 @@ public:
             graphFactors.resize(0);
             graphValues.clear();
 
+            prevState_ = gtsam::NavState(prevPose_, prevVel_);
+            prevStateOdom = prevState_;
+            prevBiasOdom = prevBias_;
             imuIntegratorImu_->resetIntegrationAndSetBias(prevBias_);
             imuIntegratorOpt_->resetIntegrationAndSetBias(prevBias_);
             
@@ -373,6 +498,11 @@ public:
         }
 
 
+        int integratedImuCount = 0;
+        int validIntegratedImuCount = 0;
+        double firstIntegratedImuTime = -1.0;
+        double lastIntegratedImuTime = -1.0;
+
         // 1. integrate imu data and optimize
         while (!imuQueOpt.empty())
         {
@@ -381,13 +511,29 @@ public:
             double imuTime = ROS_TIME(thisImu);
             if (imuTime < currentCorrectionTime - delta_t)
             {
+                if (firstIntegratedImuTime < 0.0)
+                    firstIntegratedImuTime = imuTime;
+                lastIntegratedImuTime = imuTime;
+                integratedImuCount++;
                 double dt = (lastImuT_opt < 0) ? (1.0 / 500.0) : (imuTime - lastImuT_opt);
+                if (lastImuT_opt < 0 && imuNominalRate > 1.0)
+                    dt = 1.0 / imuNominalRate;
+                if (!integrationDtValid(dt))
+                {
+                    lastImuT_opt = imuTime;
+                    imuQueOpt.pop_front();
+                    continue;
+                }
                 // Clamp dt to avoid unstable preintegration on large gaps
                 if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
                     dt = imuDtMax;
-                imuIntegratorOpt_->integrateMeasurement(
-                        gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
-                        gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
+                if (imuMeasurementValid(*thisImu))
+                {
+                    validIntegratedImuCount++;
+                    imuIntegratorOpt_->integrateMeasurement(
+                            gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
+                            gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
+                }
                 
                 lastImuT_opt = imuTime;
                 imuQueOpt.pop_front();
@@ -395,6 +541,25 @@ public:
             else
                 break;
         }
+
+        const double deltaTij = imuIntegratorOpt_->deltaTij();
+        if (validIntegratedImuCount == 0 || deltaTij <= 0.0)
+        {
+            ROS_WARN_STREAM_THROTTLE(
+                1.0,
+                robot_id << " skip IMU optimization due to insufficient preintegration."
+                         << " key=" << key
+                         << " correction_time=" << std::fixed << std::setprecision(6) << currentCorrectionTime
+                         << " integrated_count=" << integratedImuCount
+                         << " valid_integrated_count=" << validIntegratedImuCount
+                         << " first_imu_time=" << firstIntegratedImuTime
+                         << " last_imu_time=" << lastIntegratedImuTime
+                         << " deltaTij=" << deltaTij
+                         << " imu_queue_remaining=" << imuQueOpt.size());
+            imuIntegratorOpt_->resetIntegrationAndSetBias(prevBias_);
+            return;
+        }
+
         // add imu factor to graph
         const gtsam::PreintegratedImuMeasurements& preint_imu = dynamic_cast<const gtsam::PreintegratedImuMeasurements&>(*imuIntegratorOpt_);
         gtsam::ImuFactor imu_factor(X(key - 1), V(key - 1), X(key), V(key), B(key - 1), preint_imu);
@@ -411,9 +576,40 @@ public:
         graphValues.insert(X(key), propState_.pose());
         graphValues.insert(V(key), propState_.v());
         graphValues.insert(B(key), prevBias_);
-        // optimize
-        optimizer.update(graphFactors, graphValues);
-        optimizer.update();
+
+        auto logOptimizationFailure = [&](const std::string& reason) {
+            const auto pose = curPose.translation();
+            ROS_ERROR_STREAM(
+                robot_id << " IMU optimization failed: " << reason
+                         << " key=" << key
+                         << " correction_time=" << std::fixed << std::setprecision(6) << currentCorrectionTime
+                         << " deltaTij=" << deltaTij
+                         << " integrated_count=" << integratedImuCount
+                         << " valid_integrated_count=" << validIntegratedImuCount
+                         << " first_imu_time=" << firstIntegratedImuTime
+                         << " last_imu_time=" << lastIntegratedImuTime
+                         << " lastImuT_opt=" << lastImuT_opt
+                         << " degenerate=" << degenerate
+                         << " lidar_pose_xyz=[" << pose.x() << ", " << pose.y() << ", " << pose.z() << "]"
+                         << " predicted_speed=" << propState_.v().norm());
+        };
+
+        try
+        {
+            // optimize
+            optimizer.update(graphFactors, graphValues);
+            optimizer.update();
+        }
+        catch (const std::exception& ex)
+        {
+            logOptimizationFailure(ex.what());
+            graphFactors.resize(0);
+            graphValues.clear();
+            imuIntegratorOpt_->resetIntegrationAndSetBias(prevBias_);
+            resetParams();
+            return;
+        }
+
         graphFactors.resize(0);
         graphValues.clear();
         // Overwrite the beginning of the preintegration for the next step.
@@ -453,12 +649,22 @@ public:
                 sensor_msgs::Imu *thisImu = &imuQueImu[i];
                 double imuTime = ROS_TIME(thisImu);
                 double dt = (lastImuQT < 0) ? (1.0 / 500.0) :(imuTime - lastImuQT);
+                if (lastImuQT < 0 && imuNominalRate > 1.0)
+                    dt = 1.0 / imuNominalRate;
+                if (!integrationDtValid(dt))
+                {
+                    lastImuQT = imuTime;
+                    continue;
+                }
                 // Clamp dt to avoid unstable preintegration on large gaps
                 if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
                     dt = imuDtMax;
 
-                imuIntegratorImu_->integrateMeasurement(gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
-                                                        gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
+                if (imuMeasurementValid(*thisImu))
+                {
+                    imuIntegratorImu_->integrateMeasurement(gtsam::Vector3(thisImu->linear_acceleration.x, thisImu->linear_acceleration.y, thisImu->linear_acceleration.z),
+                                                            gtsam::Vector3(thisImu->angular_velocity.x,    thisImu->angular_velocity.y,    thisImu->angular_velocity.z), dt);
+                }
                 lastImuQT = imuTime;
             }
         }
@@ -477,9 +683,18 @@ public:
 
         if (imuFailureVelThreshold > 0.0 && vel.norm() > imuFailureVelThreshold)
         {
-            ROS_WARN("Large velocity, reset IMU-preintegration!");
-            return true;
+            velFailureCounter++;
+            if (velFailureCounter >= std::max(1, imuFailureVelConsecutive))
+            {
+                ROS_WARN("Large velocity persisted (%d), reset IMU-preintegration!", velFailureCounter);
+                velFailureCounter = 0;
+                return true;
+            }
+            ROS_WARN_THROTTLE(1.0, "Large velocity detected (|v|=%.3f), waiting for consecutive confirmation %d/%d",
+                              vel.norm(), velFailureCounter, std::max(1, imuFailureVelConsecutive));
+            return false;
         }
+        velFailureCounter = 0;
 
         Eigen::Vector3f ba(biasCur.accelerometer().x(), biasCur.accelerometer().y(), biasCur.accelerometer().z());
         Eigen::Vector3f bg(biasCur.gyroscope().x(), biasCur.gyroscope().y(), biasCur.gyroscope().z());
@@ -499,6 +714,9 @@ public:
 
         sensor_msgs::Imu thisImu = imuConverter(*imu_raw);
 
+        if (!imuMeasurementValid(thisImu))
+            return;
+
         imuQueOpt.push_back(thisImu);
         imuQueImu.push_back(thisImu);
 
@@ -507,6 +725,13 @@ public:
 
         double imuTime = ROS_TIME(&thisImu);
         double dt = (lastImuT_imu < 0) ? (1.0 / 500.0) : (imuTime - lastImuT_imu);
+        if (lastImuT_imu < 0 && imuNominalRate > 1.0)
+            dt = 1.0 / imuNominalRate;
+        if (!integrationDtValid(dt))
+        {
+            lastImuT_imu = imuTime;
+            return;
+        }
         // Clamp dt to avoid unstable preintegration on large gaps
         if (imuDtMax > 0.0 && (dt <= 0.0 || dt > imuDtMax))
             dt = imuDtMax;
@@ -518,6 +743,15 @@ public:
 
         // predict odometry
         gtsam::NavState currentState = imuIntegratorImu_->predict(prevStateOdom, prevBiasOdom);
+        const double speed = currentState.velocity().norm();
+        if (imuPublishMaxSpeed > 0.0 && speed > imuPublishMaxSpeed)
+        {
+            ROS_WARN_THROTTLE(1.0,
+                              "Skip IMU odom publish due to abnormal speed: %.3f m/s (limit %.3f m/s)",
+                              speed, imuPublishMaxSpeed);
+            imuIntegratorImu_->resetIntegrationAndSetBias(prevBiasOdom);
+            return;
+        }
 
         // publish odometry
         nav_msgs::Odometry odometry;
