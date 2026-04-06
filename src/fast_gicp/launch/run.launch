@@ -1,0 +1,20 @@
+<launch>
+  <!-- 可配置的参数：执行节点(可换成 gicp_kitti 等)、目标点云、源点云、数据目录 -->
+  <arg name="exec" default="gicp_align" />
+  <!-- 数据目录，默认指向 fast_gicp 包下的 data -->
+  <arg name="data_dir" default="$(find fast_gicp)/data" />
+  <!-- 注意：align.cpp 中 argv[1] 是 target，argv[2] 是 source -->
+  <!-- <arg name="target_pcd" default="$(arg data_dir)/251370668.pcd" /> -->
+  <arg name="target_pcd" default="$(arg data_dir)/synchronous_xianfeng/00075.pcd" />
+  <!-- <arg name="source_pcd" default="$(arg data_dir)/251371071.pcd" /> -->
+  <arg name="source_pcd" default="$(arg data_dir)/synchronous_xianfeng/01031.pcd" />
+
+  <!-- 如果点云文件放在别处，可直接传绝对路径：target_pcd:=/absolute/path/file.pcd -->
+  <env name="ROS_LOG_DIR" value="$(env HOME)/.ros/log" />
+
+  <!-- Optional: specify a custom relative.txt path to be used by tests/tools that read RELATIVE_TXT -->
+  <arg name="relative_txt" default="$(arg data_dir)/synchronous_xianfeng/relative_from_00075_01031.txt" />
+  <env name="RELATIVE_TXT" value="$(arg relative_txt)" />
+
+  <node pkg="fast_gicp" type="$(arg exec)" name="$(arg exec)" output="screen" args="$(arg target_pcd) $(arg source_pcd)" />
+</launch>

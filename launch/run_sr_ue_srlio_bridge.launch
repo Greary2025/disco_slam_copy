@@ -1,0 +1,74 @@
+<launch>
+    <param name="/use_sim_time" value="false" />
+
+    <arg name="discoslam_bag" default="/mnt/d/rosbag/R4/synchronous_0114_R4.bag"/>
+    <arg name="rate" default="1"/>
+    <arg name="bag_delay" default="2"/>
+    <arg name="play_bag" default="true"/>
+    <arg name="loop_bag" default="false"/>
+    <arg name="rviz" default="true"/>
+    <arg name="output_dir" default="/tmp/disco_slam_output_r4_dual"/>
+    <arg name="export_tum" default="false"/>
+    <arg name="save_pcd" default="false"/>
+    <arg name="fusion_topic" default="context"/>
+    <arg name="srlio_config" default="$(find disco_slam)/config/sr_lio_ue_r4_dual.yaml"/>
+
+    <arg name="no" default="1"/>
+    <arg name="project" default="disco_slam"/>
+    <arg name="robot0" default="xianfeng"/>
+    <arg name="robot1" default="gensui"/>
+    <arg name="robot2" default="jackal2"/>
+
+    <rosparam file="$(find disco_slam)/config/params_ue_r4_dual.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_ue.yaml" command="load" />
+    <param name="/mapfusion/interRobot/robot_initial" value="$(arg robot0)" />
+    <param name="disco_slam/savePCD" value="$(arg save_pcd)" />
+    <param name="disco_slam/savePCDDirectory" value="$(arg output_dir)" />
+
+    <include file="$(find disco_slam)/launch/include/module_srlio_bridge.launch">
+        <arg name="robot" value="$(arg robot0)"/>
+        <arg name="id1" value="$(arg robot1)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+        <arg name="srlio_config" value="$(arg srlio_config)"/>
+    </include>
+
+    <include file="$(find disco_slam)/launch/include/module_srlio_bridge.launch">
+        <arg name="robot" value="$(arg robot1)"/>
+        <arg name="id1" value="$(arg robot0)"/>
+        <arg name="id2" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
+        <arg name="srlio_config" value="$(arg srlio_config)"/>
+    </include>
+
+    <group if="$(arg rviz)">
+        <node pkg="rviz" type="rviz" name="disco_slam_rviz_r4_srlio_bridge"
+              args="-d $(find disco_slam)/launch/include/config/rviz_teaching2_dual.rviz" />
+    </group>
+
+    <group if="$(arg play_bag)">
+        <group unless="$(arg loop_bag)">
+            <node name="rosbag_player" pkg="rosbag" type="play" output="screen"
+                  args="-r $(arg rate) -d $(arg bag_delay) -q $(arg discoslam_bag)" />
+        </group>
+        <group if="$(arg loop_bag)">
+            <node name="rosbag_player_loop" pkg="rosbag" type="play" output="screen"
+                  args="-l -r $(arg rate) -d $(arg bag_delay) -q $(arg discoslam_bag)" />
+        </group>
+    </group>
+
+    <group if="$(arg export_tum)">
+        <include file="$(find disco_slam)/launch/run_path_to_tum.launch">
+            <arg name="output_dir" value="$(arg output_dir)"/>
+            <arg name="fusion_topic" value="$(arg fusion_topic)"/>
+            <arg name="robot0" value="$(arg robot0)"/>
+            <arg name="robot1" value="$(arg robot1)"/>
+            <arg name="output_file0" value="$(arg robot0)_disco_trajectory.txt"/>
+            <arg name="output_file1" value="$(arg robot1)_disco_trajectory.txt"/>
+            <arg name="output_odom_file0" value="$(arg robot0)_disco_odometry.txt"/>
+            <arg name="output_odom_file1" value="$(arg robot1)_disco_odometry.txt"/>
+            <arg name="output_transform_file0" value="$(arg robot0)_fusion_transform.txt"/>
+            <arg name="output_transform_file1" value="$(arg robot1)_fusion_transform.txt"/>
+        </include>
+    </group>
+</launch>

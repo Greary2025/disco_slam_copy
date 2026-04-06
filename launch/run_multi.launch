@@ -1,5 +1,6 @@
 <launch>
 
+    <arg name="no" default="1"/>
     <arg name="project" default="disco_slam"/>
     <arg name="robot0"	default="jackal0"/>
     <arg name="robot1"	default="jackal1"/>
@@ -7,11 +8,12 @@
 
     <!-- Parameters -->
     <rosparam file="$(find disco_slam)/config/params.yaml" command="load" />
-    <rosparam file="$(find disco_slam)/config/mapfusion.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion.yaml" command="load" />
 
 <!--    - LOAM robot 0 -->
     <include file="$(find disco_slam)/launch/include/module_loam.launch" >
 	    <arg name="robot" value="$(arg robot0)"/>
+        <arg name="no" value="$(arg no)"/>
     </include>
 
     <!--- LOAM robot 1 -->
@@ -22,6 +24,7 @@
 <!--    - LOAM robot 2 -->
     <include file="$(find disco_slam)/launch/include/module_loam.launch" >
         <arg name="robot" value="$(arg robot2)"/>
+        <arg name="no" value="$(arg no)"/>
     </include>
 
     <!--- Run Rviz-->

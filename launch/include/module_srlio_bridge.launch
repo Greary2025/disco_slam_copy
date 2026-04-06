@@ -1,0 +1,74 @@
+<launch>
+    <arg name="no" default="1"/>
+    <arg name="project" default="disco_slam"/>
+    <arg name="robot" default="jackal0"/>
+    <arg name="id1" default="jackal1"/>
+    <arg name="id2" default="jackal2"/>
+    <arg name="srlio_config" default="$(find disco_slam)/config/sr_lio_ue_r4_dual.yaml"/>
+
+    <group>
+        <node pkg="$(arg project)" type="$(arg project)_imuPreintegration"
+              name="$(arg project)_imuPreintegration_$(arg robot)"
+              output="screen" respawn="true">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="no" type="int" value="$(arg no)"/>
+        </node>
+
+        <node pkg="$(arg project)" type="$(arg project)_imageProjection"
+              name="$(arg project)_imageProjection_$(arg robot)"
+              output="screen" respawn="true">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="no" type="int" value="$(arg no)"/>
+        </node>
+
+        <node pkg="$(arg project)" type="$(arg project)_srLioFrontend"
+              name="$(arg project)_srLioFrontend_$(arg robot)"
+              output="screen" respawn="false">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="lidar_frame" type="string" value="base_link"/>
+            <rosparam file="$(arg srlio_config)" command="load"/>
+            <param name="common/lidar_topic" type="string" value="$(arg robot)/lidar"/>
+            <param name="common/imu_topic" type="string" value="$(arg robot)/imu"/>
+            <param name="output_path" type="string" value="/tmp"/>
+        </node>
+
+        <node pkg="$(arg project)" type="$(arg project)_srLioDynamicBridge"
+              name="$(arg project)_srLioDynamicBridge_$(arg robot)"
+              output="screen" respawn="true">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="input_cloud_info_topic" type="string" value="$(arg robot)/disco_slam/deskew/cloud_info"/>
+            <param name="input_dynamic_points_topic" type="string" value="$(arg robot)/sr_lio/dynamic_points_sampled"/>
+            <param name="output_cloud_info_topic" type="string" value="$(arg robot)/disco_slam/deskew/cloud_info_filtered"/>
+            <param name="output_static_cloud_topic" type="string" value="$(arg robot)/disco_slam/deskew/cloud_static_filtered"/>
+            <param name="output_dynamic_removed_topic" type="string" value="$(arg robot)/disco_slam/deskew/cloud_dynamic_removed"/>
+            <param name="dynamic_match_radius" type="double" value="0.35"/>
+            <param name="time_sync_tolerance" type="double" value="0.20"/>
+            <param name="log_interval" type="int" value="0"/>
+        </node>
+
+        <node pkg="$(arg project)" type="$(arg project)_featureExtraction"
+              name="$(arg project)_featureExtraction_$(arg robot)"
+              output="screen" respawn="true">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="no" type="int" value="$(arg no)"/>
+            <param name="input_cloud_info_topic" type="string" value="$(arg robot)/disco_slam/deskew/cloud_info_filtered"/>
+        </node>
+
+        <node pkg="$(arg project)" type="$(arg project)_mapOptmization"
+              name="$(arg project)_mapOptmization_$(arg robot)"
+              output="screen" respawn="false">
+            <param name="robot_id" type="string" value="$(arg robot)"/>
+            <param name="no" type="int" value="$(arg no)"/>
+        </node>
+    </group>
+
+    <node pkg="$(arg project)" type="$(arg project)_mapFusion"
+          name="$(arg project)_mapFusion_$(arg robot)"
+          output="screen" respawn="false">
+        <param name="robot_id" type="string" value="$(arg robot)"/>
+        <param name="id_1" type="string" value="$(arg id1)"/>
+        <param name="id_2" type="string" value="$(arg id2)"/>
+        <param name="no" type="int" value="$(arg no)"/>
+        <param name="pcm_matrix_folder" type="string" value="$(find disco_slam)/config"/>
+    </node>
+</launch>

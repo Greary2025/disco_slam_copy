@@ -3,7 +3,8 @@
 
     <arg name="discoslam_bag" default="/mnt/c/Users/Greary/Documents/rosbag/real2_bag/teaching2_dual.bag"/>
     <arg name="rate" default="3"/>
-    <arg name="rviz" default="true"/>
+    <arg name="play_bag" default="false"/>
+    <arg name="rviz" default="false"/>
 
     <arg name="no"      default="1"/>
     <arg name="project" default="disco_slam"/>
@@ -38,6 +39,8 @@
     </group>
 
     <!--- Play bag -->
-    <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-l -r $(arg rate) -q $(arg discoslam_bag)" />
+    <group if="$(arg play_bag)">
+        <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-l -r $(arg rate) -q $(arg discoslam_bag)" />
+    </group>
 
 </launch>

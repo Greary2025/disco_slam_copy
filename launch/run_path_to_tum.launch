@@ -1,16 +1,24 @@
 <launch>
-  <!-- 机器人ID，用于构造话题 /<robot_id>/disco_slam/mapping/path -->
-  <arg name="robot_id" default="gensui" />
-  <!-- 输出目录与文件名 -->
-  <arg name="output_dir" default="/mnt/d/rosbag/Examdata/double_evo/disco" />
-  <arg name="output_file" default="gensui_trajectory.txt" />
+  <arg name="output_dir" default="/tmp/disco_slam_output" />
+  <arg name="fusion_topic" default="context" />
+  <arg name="robot0" default="xianfeng" />
+  <arg name="robot1" default="gensui" />
+  <arg name="output_file0" default="xianfeng_disco_trajectory.txt" />
+  <arg name="output_file1" default="gensui_disco_trajectory.txt" />
+  <arg name="output_odom_file0" default="xianfeng_disco_odometry.txt" />
+  <arg name="output_odom_file1" default="gensui_disco_odometry.txt" />
+  <arg name="output_transform_file0" default="xianfeng_fusion_transform.txt" />
+  <arg name="output_transform_file1" default="gensui_fusion_transform.txt" />
   <arg name="overwrite" default="true" />
   <arg name="flush_every" default="50" />
 
   <node pkg="disco_slam" type="disco_slam_path_to_tum" name="path_to_tum_logger" output="screen">
-    <param name="path_topic" value="/$(arg robot_id)/disco_slam/mapping/path" />
+    <rosparam param="robot_ids" subst_value="true">[$(arg robot0), $(arg robot1)]</rosparam>
+    <rosparam param="output_filenames" subst_value="true">[$(arg output_file0), $(arg output_file1)]</rosparam>
+    <rosparam param="output_odom_filenames" subst_value="true">[$(arg output_odom_file0), $(arg output_odom_file1)]</rosparam>
+    <rosparam param="output_transform_filenames" subst_value="true">[$(arg output_transform_file0), $(arg output_transform_file1)]</rosparam>
     <param name="output_dir" value="$(arg output_dir)" />
-    <param name="output_filename" value="$(arg output_file)" />
+    <param name="fusion_topic" value="$(arg fusion_topic)" />
     <param name="overwrite" value="$(arg overwrite)" />
     <param name="flush_every" value="$(arg flush_every)" />
   </node>

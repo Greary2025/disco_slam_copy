@@ -7,7 +7,7 @@
 
     <!-- Parameters -->
     <rosparam file="$(find disco_slam)/config/params.yaml" command="load" />
-    <rosparam file="$(find disco_slam)/config/mapfusion.yaml" command="load" />
+    <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion.yaml" command="load" />
 
     <node pkg="$(arg project)" type="$(arg project)_mapFusion" name="$(arg project)_mapFusion_$(arg robot0)"   output="screen"     respawn="false">
         <param name="/robot_id" type="string" value = "$(arg robot0)"/>

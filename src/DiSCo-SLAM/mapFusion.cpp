@@ -319,14 +319,22 @@ private:
     // int robotID2Number(std::string robo){
     //     return robo.back() - '0';
     // }
-    int robotID2Number(std::string robo){
-        // return robo.back() - '0';
-        if(robo == "xianfeng")
-            return 0;
-        else if(robo == "gensui")
-            return 1;
-        else if(robo == "jinlin")
-            return 2;
+    int robotID2Number(const std::string& robo){
+        static const std::unordered_map<std::string, int> robot_id_map = {
+            {"xianfeng", 0},
+            {"gensui", 1},
+            {"jinlin", 2},
+            {"jackal0", 0},
+            {"jackal1", 1},
+            {"jackal2", 2}
+        };
+
+        auto it = robot_id_map.find(robo);
+        if (it != robot_id_map.end())
+            return it->second;
+
+        ROS_WARN_STREAM_THROTTLE(5.0, "Unknown robot id '" << robo << "', defaulting to index 0.");
+        return 0;
     }
 
     void laserCloudInfoHandler(const disco_slam::cloud_infoConstPtr& msgIn)

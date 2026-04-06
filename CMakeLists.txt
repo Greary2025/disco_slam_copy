@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   # pcl library
   pcl_conversions
+  pcl_ros
   # msgs
   std_msgs
   sensor_msgs
@@ -26,6 +27,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(OpenMP REQUIRED)
 find_package(PCL REQUIRED QUIET)
 find_package(OpenCV REQUIRED QUIET)
+find_package(Ceres REQUIRED)
 find_package(GTSAM REQUIRED QUIET)
 find_package(Eigen3 REQUIRED)
 find_package(libnabo REQUIRED)
@@ -54,6 +56,7 @@ catkin_package(
   nav_msgs
   geometry_msgs
   sensor_msgs
+  pcl_ros
   message_runtime 
   message_generation
 )
@@ -107,6 +110,27 @@ target_link_libraries(${PROJECT_NAME}_imageProjection ${catkin_LIBRARIES} ${PCL_
 add_executable(${PROJECT_NAME}_featureExtraction src/featureExtraction.cpp)
 add_dependencies(${PROJECT_NAME}_featureExtraction ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
 target_link_libraries(${PROJECT_NAME}_featureExtraction ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
+
+# SR-LIO frontend for dynamic-point filtering
+add_executable(${PROJECT_NAME}_srLioFrontend
+	src/dynamic_lio/sr_lio/src/lioOptimization.cpp
+	src/dynamic_lio/sr_lio/src/optimize.cpp
+	src/dynamic_lio/sr_lio/src/cloudMap.cpp
+	src/dynamic_lio/sr_lio/src/cloudProcessing.cpp
+	src/dynamic_lio/sr_lio/src/state.cpp
+	src/dynamic_lio/sr_lio/src/eskfEstimator.cpp
+	src/dynamic_lio/sr_lio/src/utility.cpp
+	src/dynamic_lio/sr_lio/src/parameters.cpp)
+set_target_properties(${PROJECT_NAME}_srLioFrontend PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
+target_include_directories(${PROJECT_NAME}_srLioFrontend BEFORE PRIVATE
+	src/dynamic_lio/sr_lio/include
+	src/dynamic_lio/sr_lio/thirdLibrary/tessil-src/include)
+target_link_libraries(${PROJECT_NAME}_srLioFrontend ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${CERES_LIBRARIES} ${OpenCV_LIBRARIES})
+
+# Bridge SR-LIO dynamic outputs to disco cloud_info
+add_executable(${PROJECT_NAME}_srLioDynamicBridge src/srLioDynamicBridge.cpp)
+add_dependencies(${PROJECT_NAME}_srLioDynamicBridge ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+target_link_libraries(${PROJECT_NAME}_srLioDynamicBridge ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${OpenCV_LIBRARIES})
 
 # Mapping Optimization
 add_executable(${PROJECT_NAME}_mapOptmization src/mapOptmization.cpp)

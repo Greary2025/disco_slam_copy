@@ -85,8 +85,13 @@ private:
     std_msgs::Header cloudHeader;
 
     // Ring channel detection cache
-    int ringFlag;         // 1: ring field present, -1: absent
+    int ringFlag;         // 1: ring field present, 2: infer from organized cloud, -1: angle fallback
     bool ringFlagCached;  // whether detection done
+    bool ringInfoPrinted;
+    bool timeInfoPrinted;
+    int cloudWidth;
+    int cloudHeight;
+    double syntheticScanPeriod;
 
 
 public:
@@ -107,6 +112,11 @@ public:
         // Initialize ringFlag to unknown; will detect per first cloud.
         ringFlagCached = false;
         ringFlag = 0;
+        ringInfoPrinted = false;
+        timeInfoPrinted = false;
+        cloudWidth = 0;
+        cloudHeight = 0;
+        syntheticScanPeriod = 0.0;
     }
 
     void allocateMemory()
@@ -238,7 +248,8 @@ public:
         // get timestamp
         cloudHeader = currentCloudMsg.header;
         timeScanCur = cloudHeader.stamp.toSec();
-        timeScanEnd = timeScanCur + laserCloudIn->points.back().time;
+        cloudWidth = static_cast<int>(currentCloudMsg.width);
+        cloudHeight = static_cast<int>(currentCloudMsg.height);
 
         // check dense flag
         if (laserCloudIn->is_dense == false)
@@ -247,16 +258,27 @@ public:
             ros::shutdown();
         }
 
+        const bool organizedCloudMatchesScan =
+            cloudHeight == N_SCAN && cloudWidth == Horizon_SCAN;
+
         // check ring channel (allow fallback if hasRing==false)
         if (!ringFlagCached) {
             ringFlag = -1; // assume no ring
             for (auto &f : currentCloudMsg.fields) {
                 if (f.name == "ring") { ringFlag = 1; break; }
             }
+            if (ringFlag == -1 && organizedCloudMatchesScan) {
+                ringFlag = 2;
+            }
             ringFlagCached = true;
             if (ringFlag == -1 && hasRing) {
                 ROS_ERROR("Point cloud ring channel not available, but parameter has_ring=true. Either set disco_slam/has_ring:=false or use a driver that publishes ring.");
                 ros::shutdown();
+            } else if (ringFlag == 2) {
+                if (!ringInfoPrinted) {
+                    ROS_INFO("Point cloud ring field not available. Using organized cloud layout (%d x %d) to infer ring indices.", cloudHeight, cloudWidth);
+                    ringInfoPrinted = true;
+                }
             } else if (ringFlag == -1 && !hasRing) {
                 ROS_WARN("No ring field detected. Falling back to vertical angle inference (ang_bottom=%.1f, ang_res_y=%.3f).", angBottom, angResY);
             }
@@ -274,9 +296,27 @@ public:
                     break;
                 }
             }
+            if (deskewFlag == -1 && organizedCloudMatchesScan)
+            {
+                deskewFlag = 2;
+                syntheticScanPeriod = std::max(0.0, cloudQueue.front().header.stamp.toSec() - timeScanCur);
+                if (syntheticScanPeriod <= 0.0)
+                    syntheticScanPeriod = 0.1;
+                if (!timeInfoPrinted) {
+                    ROS_INFO("Point cloud timestamp field not available. Synthesizing per-point time from organized cloud columns using scan period %.6f s.", syntheticScanPeriod);
+                    timeInfoPrinted = true;
+                }
+            }
             if (deskewFlag == -1)
                 ROS_WARN("Point cloud timestamp not available, deskew function disabled, system will drift significantly!");
         }
+
+        if (deskewFlag == 1)
+            timeScanEnd = timeScanCur + laserCloudIn->points.back().time;
+        else if (deskewFlag == 2)
+            timeScanEnd = timeScanCur + syntheticScanPeriod;
+        else
+            timeScanEnd = timeScanCur;
 
         return true;
     }
@@ -535,6 +575,8 @@ public:
             int rowIdn;
             if (ringFlag == 1) {
                 rowIdn = laserCloudIn->points[i].ring;
+            } else if (ringFlag == 2) {
+                rowIdn = i / cloudWidth;
             } else {
                 float verticalAngle = atan2(thisPoint.z, sqrt(thisPoint.x*thisPoint.x + thisPoint.y*thisPoint.y)) * 180.0 / M_PI;
                 rowIdn = int( (verticalAngle + angBottom) / angResY + 0.5 );
@@ -558,7 +600,11 @@ public:
             if (rangeMat.at<float>(rowIdn, columnIdn) != FLT_MAX)
                 continue;
 
-            thisPoint = deskewPoint(&thisPoint, laserCloudIn->points[i].time);
+            double pointRelativeTime = laserCloudIn->points[i].time;
+            if (deskewFlag == 2 && cloudWidth > 1)
+                pointRelativeTime = syntheticScanPeriod * static_cast<double>(columnIdn) / static_cast<double>(cloudWidth - 1);
+
+            thisPoint = deskewPoint(&thisPoint, pointRelativeTime);
 
             rangeMat.at<float>(rowIdn, columnIdn) = range;
 

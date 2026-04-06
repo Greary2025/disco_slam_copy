@@ -3,11 +3,7 @@ Panels:
     Help Height: 0
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /Map xianfeng1
-        - /Map gensui1
-        - /Path xianfeng1
-        - /Path gensui1
+      Expanded: ~
       Splitter Ratio: 0.5
     Tree Height: 323
   - Class: rviz/Views
@@ -33,21 +29,11 @@ Visualization Manager:
           Value: true
         gensui/base_link/lidar_link:
           Value: true
-        gensui/camera_color_frame:
-          Value: true
-        gensui/camera_color_optical_frame:
-          Value: true
-        gensui/camera_depth_frame:
-          Value: true
-        gensui/camera_depth_optical_frame:
-          Value: true
-        gensui/camera_link:
-          Value: true
-        gensui/imu_link:
-          Value: true
         gensui/odom:
           Value: true
-        gensui/velodyne:
+        gensui/sr_lio_init:
+          Value: true
+        gensui/sr_lio_laser_odom:
           Value: true
         map:
           Value: true
@@ -55,21 +41,11 @@ Visualization Manager:
           Value: true
         xianfeng/base_link/lidar_link:
           Value: true
-        xianfeng/camera_color_frame:
-          Value: true
-        xianfeng/camera_color_optical_frame:
-          Value: true
-        xianfeng/camera_depth_frame:
-          Value: true
-        xianfeng/camera_depth_optical_frame:
-          Value: true
-        xianfeng/camera_link:
-          Value: true
-        xianfeng/imu_link:
-          Value: true
         xianfeng/odom:
           Value: true
-        xianfeng/velodyne:
+        xianfeng/sr_lio_init:
+          Value: true
+        xianfeng/sr_lio_laser_odom:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -78,37 +54,23 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
+        gensui/sr_lio_init:
+          gensui/sr_lio_laser_odom:
+            {}
         map:
           gensui/odom:
             gensui/base_link:
-              gensui/camera_link:
-                gensui/camera_color_frame:
-                  gensui/camera_color_optical_frame:
-                    {}
-                gensui/camera_depth_frame:
-                  gensui/camera_depth_optical_frame:
-                    {}
-              gensui/imu_link:
-                {}
-              gensui/velodyne:
-                {}
+              {}
             gensui/base_link/lidar_link:
               {}
           xianfeng/odom:
             xianfeng/base_link:
-              xianfeng/camera_link:
-                xianfeng/camera_color_frame:
-                  xianfeng/camera_color_optical_frame:
-                    {}
-                xianfeng/camera_depth_frame:
-                  xianfeng/camera_depth_optical_frame:
-                    {}
-              xianfeng/imu_link:
-                {}
-              xianfeng/velodyne:
-                {}
+              {}
             xianfeng/base_link/lidar_link:
               {}
+        xianfeng/sr_lio_init:
+          xianfeng/sr_lio_laser_odom:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -120,14 +82,14 @@ Visualization Manager:
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
-      Color: 255; 0; 0
+      Color: 255; 204; 153
       Color Transformer: FlatColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: Map xianfeng
+      Name: Static Map xianfeng
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -148,14 +110,14 @@ Visualization Manager:
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
-      Color: 0; 255; 0
+      Color: 173; 216; 255
       Color Transformer: FlatColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: Map gensui
+      Name: Static Map gensui
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -176,7 +138,7 @@ Visualization Manager:
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
       Line Style: Lines
-      Line Width: 0.029999999329447746
+      Line Width: 0.11999999731779099
       Name: Path xianfeng
       Offset:
         X: 0
@@ -200,7 +162,7 @@ Visualization Manager:
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
       Line Style: Lines
-      Line Width: 0.029999999329447746
+      Line Width: 0.11999999731779099
       Name: Path gensui
       Offset:
         X: 0
@@ -215,9 +177,121 @@ Visualization Manager:
       Topic: /gensui/disco_slam/mapping/path
       Unreliable: false
       Value: true
+    - Alpha: 0.699999988079071
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 182; 193
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Static Current xianfeng
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.019999999552965164
+      Style: Points
+      Topic: /xianfeng/disco_slam/deskew/cloud_static_filtered
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 0.699999988079071
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 182; 193
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Static Current gensui
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.019999999552965164
+      Style: Points
+      Topic: /gensui/disco_slam/deskew/cloud_static_filtered
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 153; 102
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Dynamic Removed xianfeng
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.029999999329447746
+      Style: Points
+      Topic: /xianfeng/disco_slam/deskew/cloud_dynamic_removed
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 102; 170; 255
+      Color Transformer: FlatColor
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Dynamic Removed gensui
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.029999999329447746
+      Style: Points
+      Topic: /gensui/disco_slam/deskew/cloud_dynamic_removed
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
-    Background Color: 0; 0; 0
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: xianfeng/odom
     Frame Rate: 30
@@ -233,7 +307,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 267.4309387207031
+      Distance: 81.8662109375
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -241,17 +315,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 10.562296867370605
+        Y: 2.870105504989624
+        Z: -0.9593018293380737
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4749994277954102
+      Pitch: 1.5697963237762451
       Target Frame: xianfeng/odom
-      Yaw: 0.06500019878149033
+      Yaw: 4.72318696975708
     Saved: ~
 Window Geometry:
   Displays:
@@ -263,5 +337,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1280
-  X: -32
-  Y: -32
+  X: 303
+  Y: 27

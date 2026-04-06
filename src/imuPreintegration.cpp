@@ -44,6 +44,7 @@ public:
     tf::StampedTransform lidar2Baselink;
 
     double lidarOdomTime = -1;
+    double lastMapToOdomStamp = -1;
     deque<nav_msgs::Odometry> imuOdomQueue;
 
     TransformFusion()
@@ -97,11 +98,6 @@ public:
 //        std::cout << fusionTrans[0] << " " << fusionTrans[1] << " " << fusionTrans[2] << " " << fusionTrans[3] << " "
 //                  << fusionTrans[4] << " " << fusionTrans[5] << std::endl;
 
-        //tf
-        tf::TransformBroadcaster tfMap2Odom;
-        tf::Transform map_to_odom = tf::Transform(tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]), tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
-        tfMap2Odom.sendTransform(tf::StampedTransform(map_to_odom, odomMsg->header.stamp, mapFrame, robot_id + "/" + odometryFrame));
-
     }
     void lidarOdometryHandler(const nav_msgs::Odometry::ConstPtr& odomMsg)
     {
@@ -114,10 +110,16 @@ public:
 
     void imuOdometryHandler(const nav_msgs::Odometry::ConstPtr& odomMsg)
     {
-        //should not be static tf, if static, they will not change!
-        tf::TransformBroadcaster tfMap2Odom;
-        tf::Transform map_to_odom = tf::Transform(tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]), tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
-        tfMap2Odom.sendTransform(tf::StampedTransform(map_to_odom, odomMsg->header.stamp, mapFrame, robot_id + "/" + odometryFrame));
+        if (odomMsg->header.stamp.toSec() > lastMapToOdomStamp)
+        {
+            static tf::TransformBroadcaster tfMap2Odom;
+            tf::Transform map_to_odom = tf::Transform(
+                tf::createQuaternionFromRPY(fusionTrans[3], fusionTrans[4], fusionTrans[5]),
+                tf::Vector3(fusionTrans[0], fusionTrans[1], fusionTrans[2]));
+            tfMap2Odom.sendTransform(
+                tf::StampedTransform(map_to_odom, odomMsg->header.stamp, mapFrame, robot_id + "/" + odometryFrame));
+            lastMapToOdomStamp = odomMsg->header.stamp.toSec();
+        }
 
         std::lock_guard<std::mutex> lock(mtx);
 

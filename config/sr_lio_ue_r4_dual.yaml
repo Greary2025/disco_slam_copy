@@ -1,0 +1,68 @@
+common:
+  point_filter_num: 1
+  gravity_acc: [0.0, 0.0, 0.0]
+  imu_has_gravity: false
+
+debug_output: false
+output_path: /tmp
+
+lidar_parameter:
+  lidar_type: 2
+  N_SCANS: 16
+  Horizon_SCANS: 900
+  ang_res_x: 0.4
+  ang_res_y: 2.0
+  ang_bottom: 15.0
+  ground_scan_id: 7
+  SCAN_RATE: 2
+  time_unit: 0
+  blind: 1.0
+  fov_degree: 180
+  det_range: 100.0
+
+imu_parameter:
+  acc_cov: 0.05
+  gyr_cov: 0.01
+  b_acc_cov: 0.0005
+  b_gyr_cov: 0.0005
+  time_diff_enable: false
+
+extrinsic_parameter:
+  extrinsic_enable: false
+  extrinsic_t: [0.0, 0.0, 0.0]
+  extrinsic_R: [1.0, 0.0, 0.0,
+                0.0, 1.0, 0.0,
+                0.0, 0.0, 1.0]
+
+odometry_options:
+  init_voxel_size: 0.3
+  init_sample_voxel_size: 0.8
+  init_num_frames: 10
+  voxel_size: 0.25
+  sample_voxel_size: 0.8
+  max_distance: 100.0
+  max_num_points_in_voxel: 20
+  min_distance_points: 0.05
+  distance_error_threshold: 100.0
+  motion_compensation: CONSTANT_VELOCITY
+  initialization: INIT_CONSTANT_VELOCITY
+
+icp_options:
+  threshold_voxel_occupancy: 1
+  size_voxel_map: 0.8
+  num_iters_icp: 5
+  min_number_neighbors: 10
+  voxel_neighborhood: 1
+  power_planarity: 2.0
+  estimate_normal_from_neighborhood: true
+  max_number_neighbors: 20
+  max_dist_to_plane_icp: 0.5
+  threshold_orientation_norm: 0.1
+  threshold_translation_norm: 0.01
+  debug_print: false
+  debug_viz: false
+  num_closest_neighbors: 1
+  min_num_residuals: 80
+  max_num_residuals: 800
+  weight_alpha: 0.8
+  weight_neighborhood: 0.2

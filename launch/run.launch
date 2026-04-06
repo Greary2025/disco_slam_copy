@@ -2,7 +2,14 @@
     <!-- 启用 use_sim_time 参数 -->
     <param name="/use_sim_time" value="false" />
 
-    <arg name="discoslam_bag" value="/mnt/c/Users/Greary/Documents/rosbag/double/synchronous_1014.bag"/>
+    <arg name="discoslam_bag" default=""/>
+    <arg name="rate" default="1"/>
+    <arg name="play_bag" default="false"/>
+    <arg name="rviz" default="false"/>
+    <arg name="output_dir" default="/tmp/disco_slam_output"/>
+    <arg name="export_tum" default="true"/>
+    <arg name="save_pcd" default="true"/>
+    <arg name="fusion_topic" default="context"/>
 
     <arg name="no"      default="1"/>
     <arg name="project" default="disco_slam"/>
@@ -17,6 +24,8 @@
     <!-- <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion.yaml" command="load" /> -->
     <!-- <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_k.yaml" command="load" /> -->
     <rosparam file="$(find disco_slam)/src/DiSCo-SLAM/config/mapfusion_ue.yaml" command="load" />
+    <param name="disco_slam/savePCD" value="$(arg save_pcd)" />
+    <param name="disco_slam/savePCDDirectory" value="$(arg output_dir)" />
 
     <!--- LOAM robot 0 -->
     <include file="$(find disco_slam)/launch/include/module_loam.launch" >
@@ -49,17 +58,31 @@
     <!-- <include file="$(find disco_slam)/launch/include/module_navsat.launch" /> -->
 
     <!--- Run Rviz-->
-    <include file="$(find disco_slam)/launch/include/module_rviz.launch" />
+    <group if="$(arg rviz)">
+        <include file="$(find disco_slam)/launch/include/module_rviz.launch" />
+    </group>
 
 <!--    Run Communication Simulator-->
 <!--    <node pkg="$(arg project)" name= "$(arg project)_listener" type="listener.py" output="screen"/>-->
 
-    <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-r 1 -q $(arg discoslam_bag)">  </node>
+    <group if="$(arg play_bag)">
+        <node name="rosbag_player" pkg="rosbag" type="play" output="screen" args="-r $(arg rate) -q $(arg discoslam_bag)">  </node>
+    </group>
     
-    <!-- 启动PCD保存节点 -->
-    <!-- <include file="$(find disco_slam)/launch/run_path_to_tum.launch" /> -->
+    <group if="$(arg export_tum)">
+        <include file="$(find disco_slam)/launch/run_path_to_tum.launch" >
+            <arg name="output_dir" value="$(arg output_dir)"/>
+            <arg name="fusion_topic" value="$(arg fusion_topic)"/>
+            <arg name="robot0" value="$(arg robot0)"/>
+            <arg name="robot1" value="$(arg robot1)"/>
+            <arg name="output_file0" value="$(arg robot0)_disco_trajectory.txt"/>
+            <arg name="output_file1" value="$(arg robot1)_disco_trajectory.txt"/>
+            <arg name="output_odom_file0" value="$(arg robot0)_disco_odometry.txt"/>
+            <arg name="output_odom_file1" value="$(arg robot1)_disco_odometry.txt"/>
+            <arg name="output_transform_file0" value="$(arg robot0)_fusion_transform.txt"/>
+            <arg name="output_transform_file1" value="$(arg robot1)_fusion_transform.txt"/>
+        </include>
+    </group>
 
 
 </launch>
-
-

@@ -1,5 +1,5 @@
 <launch>
-    <arg name="no"/>
+    <arg name="no" default="1"/>
     <arg name="project" default="disco_slam"/>
     <arg name="robot"   default="jackal0"/>
     <arg name="id1"     default="jackal1"/>

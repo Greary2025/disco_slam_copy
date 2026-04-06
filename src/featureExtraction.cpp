@@ -18,6 +18,7 @@ class FeatureExtraction : public ParamServer
 public:
 
     ros::Subscriber subLaserCloudInfo;
+    std::string inputCloudInfoTopic;
 
     ros::Publisher pubLaserCloudInfo;
     ros::Publisher pubCornerPoints;
@@ -39,7 +40,11 @@ public:
 
     FeatureExtraction()
     {
-        subLaserCloudInfo = nh.subscribe<disco_slam::cloud_info>(robot_id + "/disco_slam/deskew/cloud_info", 1, &FeatureExtraction::laserCloudInfoHandler, this, ros::TransportHints().tcpNoDelay());
+        ros::NodeHandle pnh("~");
+        inputCloudInfoTopic = robot_id + "/disco_slam/deskew/cloud_info";
+        pnh.param<std::string>("input_cloud_info_topic", inputCloudInfoTopic, inputCloudInfoTopic);
+
+        subLaserCloudInfo = nh.subscribe<disco_slam::cloud_info>(inputCloudInfoTopic, 1, &FeatureExtraction::laserCloudInfoHandler, this, ros::TransportHints().tcpNoDelay());
 
         pubLaserCloudInfo = nh.advertise<disco_slam::cloud_info> (robot_id + "/disco_slam/feature/cloud_info", 1);
         pubCornerPoints = nh.advertise<sensor_msgs::PointCloud2>(robot_id + "/disco_slam/feature/cloud_corner", 1);
